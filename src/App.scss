@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+
+}
+
+$app-background: #282c34;
+
+body {
+  overflow: hidden;
+}
+
+.App {
+  text-align: center;
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+  z-index: -2;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  min-width: 100px;
+  background: linear-gradient(180deg, rgb(67, 71, 114), rgb(55, 73, 255));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 1;
+  .icon {
+    margin: 40px;
+    color: white;
+  }
+}
+
+.main-area {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(100vw - 100px);
+  height: 100vh;
+  background-color: white;
+}
+
+  
+
+
+
+

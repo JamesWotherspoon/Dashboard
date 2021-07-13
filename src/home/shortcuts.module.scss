@@ -1,0 +1,148 @@
+
+.shortcuts {
+    
+    grid-area: 6 / 1 / 13 / 3;
+
+    background-color: rgb(238, 238, 238);
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0 40px 0 0;
+    
+
+    .icons {
+        position: absolute;
+        right: 0;
+        width: 40px;
+        height: 200px;
+        
+    }
+
+    .shortcut_square {
+        margin: 10px 10px;
+        width: 70px;
+        height: 70px;
+        background-color: rgb(212, 212, 212);
+        border-radius: 15px;
+        position: relative;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.shake:nth-child(odd) {
+            animation: shortcut_shake 0.5s infinite;
+        }
+        &.shake:nth-child(even) {
+            animation: shortcut_shake 0.5s infinite;
+            animation-direction: reverse;
+        }
+
+        .favicon {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+        .favicon_retrieved {
+            width: 60%;
+            height: 60%;
+        }
+        .plus_sign {
+            width: 40%;
+            height: 40%;
+        }
+        .shortcut_delete_circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            right: -5px;
+            top: -5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .delete_shortcut {
+                color: rgb(228, 228, 228);
+            }
+        }
+
+        .form_container {
+            background-color: #555;
+            color:  #fff;
+            position: absolute;
+            border-radius: 5px;
+            width: 300px;
+            height: 130px;
+            top: calc(100% + 10px);
+            z-index: 9;
+
+            opacity: 1;
+            transition: opacity 0.5s;
+            &::before {
+                content: "";
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                margin-left: -10px;
+                border-width: 10px;
+                border-style: solid;
+                border-color: transparent transparent #555 transparent;
+            }
+            .close_add_shortcut {
+                float: right;                
+            }
+            form {
+
+                .name_container {
+                    
+                    width: 100%;
+                    margin: 20px 10px 0 10px;
+                    
+                }
+                .url_container{
+                    
+                    
+                    width: 100%;
+                    
+                }
+                input {
+                    background-color:  #fff;
+                    margin: 0 5px 0px 10px;
+                    
+                }
+                label {
+                    font-size: 18px;
+                }
+                button{
+                   border: 2px solid white;
+                   color:white;
+                   letter-spacing: 1px;
+                   background-color: transparent;
+                    padding: 4px 8px;
+                }
+            }
+        }
+
+        
+    }
+
+
+}
+
+@keyframes shortcut_shake {
+    0% {
+        transform: rotate(0);
+    }
+    20% {
+        transform: rotate(6deg);
+    }
+    80% {
+        transform: rotate(-6deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+}
