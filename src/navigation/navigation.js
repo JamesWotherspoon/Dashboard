@@ -6,6 +6,7 @@ import { FaRegCalendarAlt } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { RiZzzFill } from 'react-icons/ri';
 import { GiTwoCoins  } from 'react-icons/gi';
+import { MdNotInterested  } from 'react-icons/md';
 
 
 const Navigation = () => { 
@@ -18,13 +19,22 @@ const Navigation = () => {
              < FaRegCalendarAlt className="icon"/> 
          </Link>
          <Link to="/todo">
-            < FaTasks className="icon"/>
+            <div className="not_in_use_container">
+               <MdNotInterested className="not_in_use" />
+               < FaTasks className="icon"/>
+            </div>
          </Link>
          <Link to="/sleep-tracker">
-            < RiZzzFill className="icon"/>
+            <div className="not_in_use_container">
+               <MdNotInterested className="not_in_use" />
+               < RiZzzFill className="icon"/>
+            </div>
          </Link>
          <Link to="/" >
-            <GiTwoCoins className="icon" />
+            <div className="not_in_use_container">
+               <MdNotInterested className="not_in_use" />
+               <GiTwoCoins className="icon" />
+            </div>
          </Link>
          <Link to="/settings" >
             < FiSettings className="icon"/>

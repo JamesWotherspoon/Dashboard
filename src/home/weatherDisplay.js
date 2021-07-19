@@ -28,25 +28,42 @@ const WeatherDisplay = ({currentWeather, forcastWeather, postcode, setWeatherInp
 
     const currentWeatherDisplayed = () => {
         let currentWeatherArray = [];
+        let max_temp;
+        let min_temp;
+        if(forcastWeather !== undefined){
+            max_temp = <h5 className={styles.max_temp}>{Math.round(forcastWeather[0].max_temperture)}&deg;C</h5>;
+            min_temp = <h5 className={styles.min_temp}>{Math.round(forcastWeather[0].min_temperture)}&deg;C</h5>
+            if(currentWeather !== undefined){
+                if( currentWeather.temperture > forcastWeather[0].max_temperture){
+                    max_temp = <h5 className={styles.max_temp}>{Math.round(currentWeather.temperture)}&deg;C</h5>;
+                };
+            }
+        };
+
         if(currentWeather !== undefined){
-            
+
             currentWeatherArray = (
                 <div className={styles.current_weather_container}>
-                    <div className={styles.left} >
-                        
-                        <img src={`https://www.weatherbit.io/static/img/icons/${currentWeather.iconCode}.png `} className={styles.current_weather_icon} alt="weather" />
+                    <div className={styles.currentWeather_temp_icon_container} >
+                        <img src={`https://www.weatherbit.io/static/img/icons/${currentWeather.iconCode}.png `} className={styles.current_weather_icon} alt="weather" />       
+                        <div className={styles.currentWeather_temp_container} >
+                            <h5>
+                                {Math.round(currentWeather.temperture)}&deg;C
+                            </h5>
+                        </div>
                     </div>
-                    <div className={styles.right} >
-                        
+                    <hr />
+                    <div className={styles.currentWeather_max_min_container} >
+                        {max_temp}
+                        {min_temp}
+                    </div>
+                    <hr />
+                    <div className={styles.sunset_container} >
+                        <GiSunset className={styles.sunset_icon} />
                         <h5>
-                            <FaTemperatureHigh className={styles.high_temp_icon}/>
-                            {Math.round(currentWeather.temperture)}&deg;C
-                        </h5>
-                        <h5>
-                            <GiSunset className={styles.sunset_icon} />
                             {currentWeather.sunset}
                         </h5>
-                    </div>
+                    </div>               
                 </div>)
         }
         return currentWeatherArray
@@ -56,20 +73,30 @@ const WeatherDisplay = ({currentWeather, forcastWeather, postcode, setWeatherInp
         let forcastWeatherArray = [];
         if(forcastWeather !== undefined){
             
-            for(let i = 1; i < 7; i++){
+            for(let i = 1; i < 6; i++){
                 forcastWeatherArray.push(
-                    <div key={`forcast_${i}`} className={styles.forcastDay}>
-                        <h3>{dateToDisplay(i)}</h3>
-                        <img src={`https://www.weatherbit.io/static/img/icons/${forcastWeather[i].iconCode}.png`} className={styles.forcast_weather_icon} alt="weather" />
-                        <h5 key={`forcast_temp_${i}`}>
-                            
-                            {Math.round(forcastWeather[i].temperture)}&deg;C
-                        </h5>
-                        <h5 key={`forcast_rain_${i}`}>
-                            <WiRaindrop className={styles.rain_icon}/> 
-                             {forcastWeather[i].chanceOfRain}&#37; 
-                        </h5>
-                    </div>
+                    <>
+                        <div key={`forcast_${i}`} className={styles.forcast_day_container}>
+                            <h3>{dateToDisplay(i)}</h3>
+                            <img src={`https://www.weatherbit.io/static/img/icons/${forcastWeather[i].iconCode}.png`} className={styles.forcast_weather_icon} alt="weather" />
+                            <div className={styles.forcast_day_data} >
+                                <h5 className={styles.forcast_rain}>
+                                    <WiRaindrop className={styles.rain_icon}/> 
+                                    {forcastWeather[i].chanceOfRain}&#37; 
+                                </h5>
+                                
+                                <div className={styles.forcast_min_max_temp} >
+                                    <h5 >
+                                        {Math.round(forcastWeather[i].max_temperture)}&deg;C
+                                    </h5>
+                                    <h5>
+                                        {Math.round(forcastWeather[i].min_temperture)}&deg;C
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        {i !== 5 ? <hr /> : null}
+                    </>
                 )
             };
         }
@@ -78,13 +105,15 @@ const WeatherDisplay = ({currentWeather, forcastWeather, postcode, setWeatherInp
 
     return (
         <div className={`${styles.weather_display_container} ${styles.component}`}>
-            <BsThreeDots className={styles.edit_icon} onClick={() => setWeatherInputOpen(true)}/>
+            <div className={styles.postcode_edit_container}>
+                <h3 className={styles.weather_display_postcode}>{postcode}</h3>
+                <BsThreeDots className={styles.edit_icon} onClick={() => setWeatherInputOpen(true)}/>  
+            </div>
             <div className={styles.weather_header}>
                 <h3 className={styles.today}>Today</h3>
-                <h3>{postcode}</h3>
             </div>
             {currentWeatherDisplayed()} 
-            <div className={styles.forcast_day_container}>
+            <div className={styles.forcast_container}>
                 {forcastWeatherDisplayed()}
             </div>
         </div>

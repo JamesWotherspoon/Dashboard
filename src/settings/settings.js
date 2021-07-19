@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './settings.module.scss';
+import Cube from './cube';
 
 const Settings = () => {
     const [accountSettings, setAccountSettings] = useState({
@@ -42,7 +43,7 @@ const Settings = () => {
                     <button > </button>
                 </form>
             </div>
-            
+        <Cube ></Cube>
         </section>
     )
 }

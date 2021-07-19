@@ -44,6 +44,7 @@ const Weather = () => {
                 }      
             })
             .then(data => {
+                console.log(data);
                 setCurrentWeather({
                     weather: data.data[0].weather.description,
                     temperture: data.data[0].temp,
@@ -86,16 +87,17 @@ const Weather = () => {
                 }      
             })
             .then(data => {
-                
+                console.log(data);
                 let forcastWeatherObject = {};
-                for(let i = 1; i < 7; i++){
+                for(let i = 0; i < 6; i++){
                    
                     forcastWeatherObject = {
                         ...forcastWeatherObject,
                         [i]: {
                             weather: data.data[i].weather.description,
                             iconCode: data.data[i].weather.icon,
-                            temperture: data.data[i].temp,
+                            max_temperture: data.data[i].app_max_temp,
+                            min_temperture: data.data[i].app_min_temp,
                             chanceOfRain: data.data[i].pop
                         }
                     }
@@ -153,19 +155,23 @@ const Weather = () => {
     return (
         <section className={`${styles.weather} ${styles.component}`}>
             {weatherInputOpen ? (
-                <>
-                    <form>
+                
+                <div className={styles.postcode_input_container} >
+                    <form >
                         <BsThreeDots className={styles.edit_icon} onClick={() => setWeatherInputOpen(false)}/>
                         {currentWeatherApiSuccess ? null : (<p className={styles.error_messsage}>Please ensure a valid postcode is entered</p>)}
                         <label for="postcode" >What is your Postcode? </label>
-                        <input type="text" name="postcode" value={postcode} onChange={inputChange} pattern="[a-zA-Z0-9]" minLength="4" maxLength="8" required/>
-                        <button onClick={submitPostcode}>Submit</button>
+                        <div className={styles.input_button_container}>
+                            <input type="text" name="postcode" value={postcode} onChange={inputChange} pattern="[a-zA-Z0-9]" minLength="4" maxLength="8" required/>
+                            <button onClick={submitPostcode}>Submit</button>
+                        </div>
                     </form>
-                </>
+                </div>
+                
             ) : (
-                <>
-                    <WeatherDisplay forcastWeather={forcastWeather} currentWeather={currentWeather} postcode={postcode} setWeatherInputOpen={setWeatherInputOpen} />
-                </>
+                
+                <WeatherDisplay forcastWeather={forcastWeather} currentWeather={currentWeather} postcode={postcode} setWeatherInputOpen={setWeatherInputOpen} />
+                
             )}
         </section>
     )

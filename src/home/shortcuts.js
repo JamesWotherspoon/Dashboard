@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './shortcuts.module.scss';
+import home_styles from './home.module.scss';
 import { BsThreeDots } from 'react-icons/bs';
 import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
@@ -11,6 +12,8 @@ import netflix_image from '../images/netflix.png';
 import spotify_image from '../images/spotify.png';
 import wikipedia_image from '../images/wikipedia.png';
 import plus_sign from '../images/plus_sign.png';
+import twitter_image from '../images/twitter.jpg';
+import imbd_image from '../images/imbd.png';
 
 
 const Shortcuts = () => {
@@ -51,7 +54,13 @@ const Shortcuts = () => {
             image: netflix_image},
         {   name: 'Spotify',
             url: 'https://open.spotify.com/',
-            image: spotify_image}
+            image: spotify_image},
+        {   name: 'Twitter',
+            url: 'https://twitter.com/?lang=en-gb',
+            image: twitter_image},
+        {   name: 'IMBD',
+            url: 'https://www.imdb.com/',
+            image: imbd_image}
     ];
 
     if(intialRender.current === 0 ){
@@ -108,7 +117,7 @@ const Shortcuts = () => {
         event.stopPropagation();
         let shortcutsTemporary = [...shortcutState];
         shortcutsTemporary.splice(index, 1);
-        console.log(shortcutsTemporary);
+        
         setShortcutState(shortcutsTemporary);
     }
     const followLink = (i) => {
@@ -130,7 +139,7 @@ const Shortcuts = () => {
         let i = 0;
         console.log(shortcutDisplayArray.length);
 
-        while(shortcutDisplayArray.length < 12){
+        while(shortcutDisplayArray.length < 9){
             i += 1;
             shortcutDisplayArray.push(
             <div key={`shortcuts_blank_${i}`} className={styles.shortcut_square} >
@@ -152,17 +161,27 @@ const Shortcuts = () => {
                 </div>) : null }
             </div>)
         };
+        shortcutDisplayArray.push(
+            <>
+                <div key={`shortcuts_blank_edit`} className={styles.shortcut_square} >
+                    < BsThreeDots onClick={() => setShortcutEdit(prev => !prev)} className={styles.edit_shortcut_icon}/>
+                    {(shortcutEdit) ? 
+                    (<div key={`shortcuts_blank_reset`} className={styles.shortcut_square} id={styles.reset_icon}>
+                        < GrPowerReset onClick={() => resetShortcutList()} className={styles.reset_shortcut_icon} />
+                    </div>) : null}
+                </div>
+            </>
+        )
+
         console.log(shortcutDisplayArray.length)
         return shortcutDisplayArray
     };
 
 
     return (
-        <section className={`${styles.shortcuts} ${styles.component}`}>
-            <div className={styles.icons} >
-                < BsThreeDots onClick={() => setShortcutEdit(prev => !prev)} className={styles.edit_shortcut_icon}/>
-                < GrPowerReset onClick={() => resetShortcutList()} className={styles.reset_shortcut_icon} />
-            </div>
+        <section className={`${home_styles.shortcuts} ${styles.shortcuts}`}>
+       
+       
             {shortcutDisplay()}
         </section>
     )

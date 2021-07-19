@@ -1,28 +1,23 @@
 
 .shortcuts {
-    
-    grid-area: 6 / 1 / 13 / 3;
 
-    background-color: rgb(238, 238, 238);
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 0 40px 0 0;
-    
+    justify-content: space-between;
+    align-items: center;
 
-    .icons {
+    #reset_icon {
         position: absolute;
-        right: 0;
-        width: 40px;
-        height: 200px;
-        
+        top: -65px;
+        left: 0px;
+
     }
 
     .shortcut_square {
-        margin: 10px 10px;
-        width: 70px;
-        height: 70px;
+        margin: 0px 10px 0 0;
+        width: 60px;
+        height: 60px;
         background-color: rgb(212, 212, 212);
         border-radius: 15px;
         position: relative;

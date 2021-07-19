@@ -20,7 +20,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 28px;
   color: black;
   z-index: -2;
 }
@@ -30,14 +30,30 @@ nav {
   top: 0;
   left: 0;
   height: 100vh;
-  min-width: 100px;
-  background: linear-gradient(180deg, rgb(67, 71, 114), rgb(55, 73, 255));
+  width: 100px;
+  //background: linear-gradient(180deg, transparent 20%, black , transparent 70%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
   z-index: 1;
+
+  .not_in_use_container {
+    position: relative;
+    .icon {
+      color: rgba(110, 110, 110, 0.6);
+    }
+  }
+
+  .not_in_use {
+    color: rgba(100, 100, 100, 0.8);
+    position: absolute;
+    font-size: 64px;
+    top: calc(50% - 34px);
+    left: calc(50% - 32px);
+  }
+
   .icon {
     margin: 40px;
     color: white;
@@ -48,9 +64,13 @@ nav {
   position: absolute;
   top: 0;
   right: 0;
-  width: calc(100vw - 100px);
+  width: 100vw;
   height: 100vh;
-  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(  rgb(67, 71, 114), rgb(0, 0, 25));
+
 }
 
   
