@@ -24,12 +24,6 @@ const Navigation = () => {
                < FaTasks className="icon"/>
             </div>
          </Link>
-         <Link to="/sleep-tracker">
-            <div className="not_in_use_container">
-               <MdNotInterested className="not_in_use" />
-               < RiZzzFill className="icon"/>
-            </div>
-         </Link>
          <Link to="/" >
             <div className="not_in_use_container">
                <MdNotInterested className="not_in_use" />

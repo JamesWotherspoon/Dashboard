@@ -23,11 +23,11 @@ const WeatherDisplay = ({currentWeather, forcastWeather, postcode, setWeatherInp
         } else {
             suffix = 'th'
         }
-        return (<h3>{day} {date}{suffix}</h3>) ;
+        return (`${day} ${date}${suffix}`) ;
     }
 
     const currentWeatherDisplayed = () => {
-        let currentWeatherArray = [];
+        let currentWeatherContainer;
         let max_temp;
         let min_temp;
         if(forcastWeather !== undefined){
@@ -42,7 +42,7 @@ const WeatherDisplay = ({currentWeather, forcastWeather, postcode, setWeatherInp
 
         if(currentWeather !== undefined){
 
-            currentWeatherArray = (
+            currentWeatherContainer = (
                 <div className={styles.current_weather_container}>
                     <div className={styles.currentWeather_temp_icon_container} >
                         <img src={`https://www.weatherbit.io/static/img/icons/${currentWeather.iconCode}.png `} className={styles.current_weather_icon} alt="weather" />       
@@ -64,9 +64,9 @@ const WeatherDisplay = ({currentWeather, forcastWeather, postcode, setWeatherInp
                             {currentWeather.sunset}
                         </h5>
                     </div>               
-                </div>)
+                </div>);
         }
-        return currentWeatherArray
+        return currentWeatherContainer
     }
 
     const forcastWeatherDisplayed = () => {
@@ -75,28 +75,28 @@ const WeatherDisplay = ({currentWeather, forcastWeather, postcode, setWeatherInp
             
             for(let i = 1; i < 6; i++){
                 forcastWeatherArray.push(
-                    <>
+                    <div key={`forcastWeatherCont_${i}`}>
                         <div key={`forcast_${i}`} className={styles.forcast_day_container}>
-                            <h3>{dateToDisplay(i)}</h3>
+                            <h3 >{dateToDisplay(i)}</h3>
                             <img src={`https://www.weatherbit.io/static/img/icons/${forcastWeather[i].iconCode}.png`} className={styles.forcast_weather_icon} alt="weather" />
                             <div className={styles.forcast_day_data} >
-                                <h5 className={styles.forcast_rain}>
-                                    <WiRaindrop className={styles.rain_icon}/> 
+                                <h5  className={styles.forcast_rain}>
+                                    <WiRaindrop key={`rainIcon_${i}`} className={styles.rain_icon}/> 
                                     {forcastWeather[i].chanceOfRain}&#37; 
                                 </h5>
                                 
-                                <div className={styles.forcast_min_max_temp} >
-                                    <h5 >
+                                <div key={`forcastTemp_${i}`} className={styles.forcast_min_max_temp} >
+                                    <h5  >
                                         {Math.round(forcastWeather[i].max_temperture)}&deg;C
                                     </h5>
-                                    <h5>
+                                    <h5 >
                                         {Math.round(forcastWeather[i].min_temperture)}&deg;C
                                     </h5>
                                 </div>
                             </div>
                         </div>
                         {i !== 5 ? <hr /> : null}
-                    </>
+                    </div >
                 )
             };
         }

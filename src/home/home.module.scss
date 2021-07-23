@@ -6,8 +6,8 @@
 * {
   font-weight: inherit;
   font-family: Arial, Helvetica, sans-serif;
+  color: black;
 }
-
 
 .home {
 
@@ -38,7 +38,7 @@
     backdrop-filter: blur(3px);
   }    
   .display_date {
-    grid-area: 3 / 1 / 6 / 3;
+    grid-area: 1 / 1 / 4 / 3;
     @extend %component-background;
     border: 0px;
 
@@ -70,16 +70,17 @@
     }
   }
   .clock {
-    grid-area: 3 / 3 / 6 / 5;
+    grid-area: 1 / 3 / 4 / 5;
    
   }
   .search_bar {
-    grid-area: 1 / 1 / 3 / 5;
+    grid-area: 4 / 1 / 6 / 5;
 
   }
   .weather {
     grid-area: 1 / 5 / 6 / 10;
-    color: white;
+    
+
   }
   .news_api {
     grid-area: 7 / 1 / 13 / 10;
@@ -326,96 +327,137 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: auto;
-  width: calc(height);
-  border: 11px solid white;
-  border-radius: 900px;
-
-  border-top: transparent;
-  border-bottom: transparent;
-
-  background-color: transparent;
 
     .time {
-      border-radius: 900px;
+
+      font-size: 64px;
       
-      font-size: 42px;
-      color: white;
       font-family: Arial, Helvetica, sans-serif;
     }
 }
 
 .news_api {
-  
   position: relative;
-  height: 100%;
-  
   overflow: hidden;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .news_article_container {
-
-    width: 28%;
-    min-width: 120px;
+  
+  .news_api_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    .news_article_container {
 
-    border-radius: 10px;
-    background-color: white;
-    text-align: left;
-    
+      width: 25%;
+      min-width: 120px;
+      height: 100%;
 
-    .news_article_title_container {
-      height: calc(100% - 121px);
-
-      padding: 5px;
-      
-      .news_article_title {
-        
-        font-size: 18px;
-        font-weight: 600;
-      }
-      
-      
-    }
-    .news_article_image_container {
-      height: 100px;
-      width: 100%;
-      background-color: black;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
+      flex-direction: column;
+      justify-content: space-between;
+
+      border-radius: 10px;
+      background-color: white;
+      text-align: left;
       
 
-      .news_article_image {
-        width: 100%;
+      .news_article_title_container {
         height: auto;
+        padding: 5px;
+
+        .news_article_title {
+          
+          font-size: 18px;
+          font-weight: 600;
+        }    
       }
+      .news_article_published_container {
+        
+        width: 100%;
+        font-size: 16px;
+
+
+        overflow: hidden;
+        
+      }
+
     }
-    .news_article_published {
-      font-size: 12px;
+    .arrow_icon {
+      font-size: 82px;
       
-      overflow: hidden;
-
-      .time_since_published_icon {
-
-      }
-
-    }
-    .news_article_description {
-      font-size: 12px;
     }
   }
-  .arrow_icon {
-    font-size: 64px;
-    color: white;
+}
+
+.error_message_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin: 10px;
+    text-align: left;
+    font-size: 18px;
+  }
+  h5 {
+    margin: 20px 10px;
+    text-align: left;
+    font-size: 16px;
+  }
+  .retry_api{
+    margin: 20px;
+    padding: 10px ;
+    font-size: 42px; 
   }
 
+}
+
+.container_for_opacity_change_on_loading {
+  opacity: 0;
+}
+.container_for_opacity_change_on_loaded {
+  opacity: 1;
+  transition: opacity 1.5s;
+}
+.is_loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .loading_ring_container{
+    width: 60px;
+    height: 60px;
+    margin: 20px;
+    border-radius: 80px;
+    background: linear-gradient(0deg, rgb(131, 131, 131) 30%, rgb(255, 255, 255) 0%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: loadingRingAnimation 1.5s infinite linear;
+
+    .loading_ring {
+      width: 55px;
+      height: 55px;
+      border-radius: 60px;
+      background: radial-gradient(  rgb(67, 71, 114), rgb(0, 0, 25));
+      background-attachment: fixed;
+    }
+  }
+  
+}
+
+
+@keyframes loadingRingAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

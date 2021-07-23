@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiAddToQueue } from 'react-icons/bi';
 import DayPlanner from './dayPlanner';
 import styles from './calender.module.scss';
 
 
-const CreateCalenderTable = ({ YearMonthInput, onCurrentMonth, previousMonth, nextMonth, children}) => {
+const CreateCalenderTable = ({ YearMonthInput, onCurrentMonth, children}) => {
     const [selected, setSelected] = useState(null);
-    const [updateToStorage, setUpdateToStorage] = useState(false);
+    const [, updateToLocalStorage] = useState(false);
     const [openTaskTab, setOpenTaskTab] = useState(false);
 
     
@@ -98,11 +98,10 @@ const CreateCalenderTable = ({ YearMonthInput, onCurrentMonth, previousMonth, ne
         calenderSquares.push(<div id={id} key={id} className={`${styles.not_current_month_squares} ${styles.calender_square}`}>{nextMonthBeginning}</div>)
     }
 
-
-
     const taskChange = () => {
-        setUpdateToStorage(prev => !prev);
+        updateToLocalStorage(prev => !prev);
     }
+
     let selectedDate = dateInGbFormat(selected);
 
     return (

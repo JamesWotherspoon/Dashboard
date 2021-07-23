@@ -1,17 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './home.module.scss';
 import { BsClock } from 'react-icons/bs';
 import { GrFormNext } from 'react-icons/gr';
 import { GrFormPrevious } from 'react-icons/gr';
+import { IoMdRefresh } from 'react-icons/io';
+
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 
 const NewsApi = () => {
     const [newsStories, setNewsStories] = useState();
     const [articleDisplay, setArticleDisplay] = useState(0);
-    const intialRender = useRef(0)
+    const [errorMessage, setErrorMessage] = useState();
+    const [loadingErrorState, setLoadingErrorState] = useState();
 
     const fetchNews = () => {
+
+        console.log( 'fetch news triggered')
 
         fetch("https://google-news.p.rapidapi.com/v1/top_headlines?lang=en&country=UK", {
             "method": "GET",
@@ -28,7 +35,7 @@ const NewsApi = () => {
             } else { 
                 
                 throw new Error(
-                    'News API not successfull.\r\n HTTP Status: '  + response.status
+                    'HTTP Status: ' + response.status
                 );
             }
         })
@@ -38,8 +45,6 @@ const NewsApi = () => {
             for(let i=0; i < 10; i++){
                 newsArray.push({
                     title: data.articles[i].title,
-                    source: data.articles[i].source.title,
-                    description: data.articles[i].description,
                     published: data.articles[i].published,
                     link: data.articles[i].link
                 })
@@ -49,23 +54,23 @@ const NewsApi = () => {
         })
         .catch(err => {
             console.error(err);
+            setErrorMessage(err);
         });
     }
-    
-    if(intialRender.current === 0){
-        intialRender.current += 1;
+
+    useEffect(() => {
         let newsStored = localStorage.getItem('news');
         if(newsStored !== null){
             newsStored = JSON.parse(newsStored)
             if((Date.now() - newsStored.timeSaved) < (1800000) ){
                 setNewsStories(newsStored.array);
             } else {
-                fetchNews();
+                //fetchNews();
             }
         } else {
-            fetchNews();
-        }
-    }
+            //fetchNews();
+        };
+    }, [])
 
     const previousArticle = () => {
         if(articleDisplay === 0){
@@ -76,7 +81,7 @@ const NewsApi = () => {
     }
 
     const nextArticle = () => {
-        console.log(articleDisplay);
+        
         if(articleDisplay === 6){
             setArticleDisplay(0)
         } else {
@@ -89,37 +94,67 @@ const NewsApi = () => {
         if(newsStories){
             for(let i=startingArticle; i < (startingArticle + 3); i++){
                 newsDisplay.push(
-                    <>
-                        <div className={styles.news_article_container} key={newsStories[i].title} id={`_${i}`} onClick={() => {return null}}>
-                            <div className={styles.news_article_title_container} >
-                                <a href={newsStories[i].link} >
+                    <div className={styles.news_article_container} key={uuidv4()} id={`_${i}`} >
+                        <div className={styles.news_article_title_container} >
+                            <a href={newsStories[i].link} >
                                 <h2 className={styles.news_article_title} >{newsStories[i].title}</h2>
-                                </a>
-                                <h6 className={styles.news_article_source} >
-                                    {newsStories[i].source}
-                                </h6>
-                            </div>
-                            <div>
-                                <img src={newsStories[i].link} alt=''/>
-                                
-                                <h6 className={styles.news_article_published} >
-                                    <BsClock className={styles.time_since_published_icon} />
-                                    {newsStories[i].published}
-                                </h6>
-                            </div>
+                            </a>
                         </div>
-                    </>
+                        <div className={styles.news_article_published_container}>
+                            <BsClock />
+                            <h6>{newsStories[i].published}</h6>
+                        </div>
+                    </div>
                 )
             }
         }
         return newsDisplay
     }
 
+    
+    const loadingTimeExpired = () => {
+        if(!newsStories){
+            setLoadingErrorState([
+                <div className={styles.error_message_container} key={uuidv4()}>
+                        <div className={styles.retry_api}>
+                            <IoMdRefresh  onClick={() => fetchNews()}/>
+                        </div>     
+                        <div>
+                            <h2>News API not successfull. </h2>
+                            <h2>{errorMessage}</h2>
+                        </div>         
+                </div>
+            ])
+        }
+    }
+
+    useEffect(()=> {
+        setLoadingErrorState([
+            <div className={`${styles.is_loading}`} key={uuidv4()} >
+                <div className={styles.loading_ring_container} >
+                    <div className={styles.loading_ring} >
+                    </div>
+                </div>
+            </div> 
+        ])
+        
+        let loadingTime = setTimeout(() => {
+            loadingTimeExpired();
+        }, 5000);
+
+        return () => clearTimeout(loadingTime);
+    }, [])
+
     return (
         <section className={styles.news_api}>
-            <GrFormPrevious onClick={previousArticle} className={styles.arrow_icon} />
-            {displayNewsStories(articleDisplay)}
-            <GrFormNext onClick={nextArticle} className={styles.arrow_icon} />
+            {(newsStories) ? null : (
+                loadingErrorState
+            )}
+            <div className={`${styles.news_api_content} ${(newsStories) ? styles.container_for_opacity_change_on_loaded : styles.container_for_opacity_change_on_loading}`} >
+                <GrFormPrevious onClick={previousArticle} className={styles.arrow_icon} />
+                {displayNewsStories(articleDisplay)}
+                <GrFormNext onClick={nextArticle} className={styles.arrow_icon} />
+            </div >
         </section>
     )
 }

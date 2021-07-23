@@ -102,7 +102,6 @@ const Shortcuts = () => {
 
     useEffect(() => {
         localStorage.setItem('shortcuts', JSON.stringify(shortcutState));
-        shortcutDisplay();
     }, [shortcutState]);
 
     const handleNameChange = (event) => {
@@ -117,9 +116,9 @@ const Shortcuts = () => {
         event.stopPropagation();
         let shortcutsTemporary = [...shortcutState];
         shortcutsTemporary.splice(index, 1);
-        
         setShortcutState(shortcutsTemporary);
     }
+
     const followLink = (i) => {
         window.open(shortcutState[i].url, '_self');
     }
@@ -128,7 +127,7 @@ const Shortcuts = () => {
         let shortcutDisplayArray = [];
         for(let i=0; i < shortcutState.length; i++){
             shortcutDisplayArray.push(
-                <div key={shortcutState[i].name} className={`${styles.shortcut_square} ${(shortcutEdit) ? styles.shake : null}`} onClick={() => followLink(i)}>
+                <div key={`${shortcutState[i].name}_${i}`} className={`${styles.shortcut_square} ${(shortcutEdit) ? styles.shake : null}`} onClick={() => followLink(i)}>
                     {(shortcutEdit) ? (
                     <div className={styles.shortcut_delete_circle}>
                         <IoClose onClick={(event) => deleteShortcut(event, i)} className={styles.delete_shortcut}/>
@@ -137,7 +136,7 @@ const Shortcuts = () => {
                 </div> )
         };
         let i = 0;
-        console.log(shortcutDisplayArray.length);
+        
 
         while(shortcutDisplayArray.length < 9){
             i += 1;
@@ -162,25 +161,22 @@ const Shortcuts = () => {
             </div>)
         };
         shortcutDisplayArray.push(
-            <>
-                <div key={`shortcuts_blank_edit`} className={styles.shortcut_square} >
-                    < BsThreeDots onClick={() => setShortcutEdit(prev => !prev)} className={styles.edit_shortcut_icon}/>
-                    {(shortcutEdit) ? 
-                    (<div key={`shortcuts_blank_reset`} className={styles.shortcut_square} id={styles.reset_icon}>
-                        < GrPowerReset onClick={() => resetShortcutList()} className={styles.reset_shortcut_icon} />
-                    </div>) : null}
-                </div>
-            </>
+            <div key={`shortcuts_blank_edit`} className={styles.shortcut_square} >
+                < BsThreeDots onClick={() => setShortcutEdit(prev => !prev)} className={styles.edit_shortcut_icon}/>
+                {(shortcutEdit) ? 
+                (<div key={`shortcuts_blank_reset`} className={styles.shortcut_square} id={styles.reset_icon}>
+                    < GrPowerReset onClick={() => resetShortcutList()} className={styles.reset_shortcut_icon} />
+                </div>) : null}
+            </div>
         )
 
-        console.log(shortcutDisplayArray.length)
+       
         return shortcutDisplayArray
     };
-
+    
 
     return (
         <section className={`${home_styles.shortcuts} ${styles.shortcuts}`}>
-       
        
             {shortcutDisplay()}
         </section>

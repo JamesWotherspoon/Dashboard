@@ -2,12 +2,7 @@ import React from 'react'
 import './cube.scss';
 
 export default function Cube() {
-    let x = (
-        <>
-        <div className="cube__face cube__face__top">top</div>
-                    <div className="cube__face cube__face__bottom">bottom</div>
-                    </>
-    );
+
     return (
         <div>
             <div className="scene">
