@@ -3,13 +3,13 @@ import styles from './home.module.scss';
 
 const DisplayDate = () => {
     const currentDate = new Date();
-    const dateString = currentDate.toDateString();
-    let [ day, month, date, year ] = dateString.split(' ');
+    const dateToString = currentDate.toDateString();
+    let [ day, month, date, ] = dateToString.split(' ');
     date = Number(date);
 
     return (
         <section className={`${styles.display_date} ${styles.component}`} >
-            <div className={styles.top}>
+            <div className={styles.display_date_top_decoration_container}>
                 <div className={styles.ring_holes} >
                     <div className={styles.ring_binders} >
 

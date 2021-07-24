@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import styles from './home.module.scss';
 import { BsClock } from 'react-icons/bs';
 import { GrFormNext } from 'react-icons/gr';
@@ -15,6 +15,7 @@ const NewsApi = () => {
     const [articleDisplay, setArticleDisplay] = useState(0);
     const [errorMessage, setErrorMessage] = useState();
     const [loadingErrorState, setLoadingErrorState] = useState();
+    const year = useRef((new Date()).getFullYear());
 
     const fetchNews = () => {
 
@@ -43,9 +44,16 @@ const NewsApi = () => {
             console.log(data)
             const newsArray = []
             for(let i=0; i < 10; i++){
+                let [title] = data.articles[i].title.split('-')
+                console.log(year)
+                let publishedIndex = data.articles[i].published.indexOf(`${year.current}`) + 4;
+                console.log(publishedIndex);
+                let published = data.articles[i].published.slice(0, publishedIndex);
+                console.log(published)
                 newsArray.push({
-                    title: data.articles[i].title,
-                    published: data.articles[i].published,
+                    title: title,
+                    source: data.articles[i].source.title,
+                    published: published,
                     link: data.articles[i].link
                 })
             }
@@ -54,6 +62,7 @@ const NewsApi = () => {
         })
         .catch(err => {
             console.error(err);
+            console.log(err);
             setErrorMessage(err);
         });
     }
@@ -65,13 +74,20 @@ const NewsApi = () => {
             if((Date.now() - newsStored.timeSaved) < (1800000) ){
                 setNewsStories(newsStored.array);
             } else {
-                //fetchNews();
+                fetchNews();
             }
         } else {
-            //fetchNews();
+            fetchNews();
         };
     }, [])
 
+    const nextArticle = () => {
+        if(articleDisplay === 6){
+            setArticleDisplay(0)
+        } else {
+            setArticleDisplay((prev) => prev + 1)
+        }
+    }
     const previousArticle = () => {
         if(articleDisplay === 0){
             setArticleDisplay(6)
@@ -80,25 +96,18 @@ const NewsApi = () => {
         }
     }
 
-    const nextArticle = () => {
-        
-        if(articleDisplay === 6){
-            setArticleDisplay(0)
-        } else {
-            setArticleDisplay((prev) => prev + 1)
-        }
-    }
-
     const displayNewsStories = (startingArticle) => {
         let newsDisplay = [];
         if(newsStories){
             for(let i=startingArticle; i < (startingArticle + 3); i++){
+                
                 newsDisplay.push(
                     <div className={styles.news_article_container} key={uuidv4()} id={`_${i}`} >
                         <div className={styles.news_article_title_container} >
                             <a href={newsStories[i].link} >
                                 <h2 className={styles.news_article_title} >{newsStories[i].title}</h2>
                             </a>
+                            <h2 className={styles.news_article_source} >{newsStories[i].source}</h2>
                         </div>
                         <div className={styles.news_article_published_container}>
                             <BsClock />
@@ -110,34 +119,42 @@ const NewsApi = () => {
         }
         return newsDisplay
     }
+    const displayLoadingCircle = () => {
+        setLoadingErrorState(
+            <div className={`${styles.is_loading}`} >
+                <div className={styles.loading_ring_container} >
+                    <div className={styles.loading_ring} >
+                    </div>
+                </div>
+            </div> 
+        )
+    }
 
+    const errorRetryFetch = () => {
+        displayLoadingCircle();
+        fetchNews();
+    }
     
     const loadingTimeExpired = () => {
         if(!newsStories){
-            setLoadingErrorState([
+            setLoadingErrorState(
                 <div className={styles.error_message_container} key={uuidv4()}>
                         <div className={styles.retry_api}>
-                            <IoMdRefresh  onClick={() => fetchNews()}/>
+                            <IoMdRefresh  onClick={() => errorRetryFetch()}/>
                         </div>     
                         <div>
                             <h2>News API not successfull. </h2>
                             <h2>{errorMessage}</h2>
                         </div>         
                 </div>
-            ])
+            )
         }
     }
 
     useEffect(()=> {
-        setLoadingErrorState([
-            <div className={`${styles.is_loading}`} key={uuidv4()} >
-                <div className={styles.loading_ring_container} >
-                    <div className={styles.loading_ring} >
-                    </div>
-                </div>
-            </div> 
-        ])
-        
+
+        displayLoadingCircle();
+
         let loadingTime = setTimeout(() => {
             loadingTimeExpired();
         }, 5000);

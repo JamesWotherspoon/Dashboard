@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IoClose } from 'react-icons/io5';
 
-const UpcomingEventsEdit = ({ deleteTask, callToggleForm, addTask, taskToEdit } )  => {
+const UpcomingEventForm = ({ deleteTask, callToggleForm, addTask, taskToEdit })  => {
 
     const [task, setTask] = useState({
         date: '',
@@ -122,4 +122,4 @@ const UpcomingEventsEdit = ({ deleteTask, callToggleForm, addTask, taskToEdit } 
     )
 }
 
-export default UpcomingEventsEdit
+export default UpcomingEventForm;

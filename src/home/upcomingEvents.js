@@ -4,7 +4,7 @@ import styles from './upcomingEvents.module.scss';
 import { IoClose } from 'react-icons/io5';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdAdd } from 'react-icons/md';
-import UpcomingEventsEdit from './upcomingEventsEdit';
+import UpcomingEventsEdit from './upcomingEventForm';
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -25,8 +25,8 @@ const UpcomingEvents = () => {
             let tasksStored = localStorage.getItem(date);
             //if task retrieved from localStorage add to TaskObj 
             if(tasksStored !== null){
-                tasksStored = JSON.parse(tasksStored);
-                taskObj[date] = tasksStored;  
+                tasksStored = JSON.parse( tasksStored )
+                taskObj = {...taskObj, [date]: tasksStored } ;  
             }
         }
         // set all tasks retreieved to tasks state
@@ -80,21 +80,33 @@ const UpcomingEvents = () => {
         changeToggleForm(prev => !prev)
     }
 
-    const orderTaskDates = () => {
-        let cloneTasks = tasks;
-
-    }
-
-    console.log(tasks)
-
     const retrieveEvents = () => {
         
         if(tasks){
             let eventsDisplayed = () => {
                 let eventsList = [];
-                for(let element in tasks){
-                    
-                    tasks[element].sort(( a, b ) => {
+                let tasksArray = [];
+                // converting tasks to array to order dates 
+                for(const element in tasks){
+                    tasksArray.push(tasks[element]);
+                };
+                tasksArray.sort((a, b) => {
+
+                    let dateA = Date.parse(a[0].inputDate);
+                    console.log(dateA);
+                    let dateB = Date.parse(b[0].inputDate);
+                    if ( dateA < dateB ){
+                        return -1;
+                    }
+                    if ( dateA > dateB ){
+                        return 1;
+                    }
+                    return 0;
+                });
+
+                tasksArray.forEach(element  => {
+                    // ordering tasks by start time
+                    element.sort(( a, b ) => {
                         if ( a.startTime < b.startTime ){
                           return -1;
                         }
@@ -104,24 +116,24 @@ const UpcomingEvents = () => {
                         return 0;
                     });
                     
-                    for(let i = 0; i < tasks[element].length; i++){
+                    for(let i = 0; i < element.length; i++){
 
                         eventsList.push(
                             <div className={styles.upcoming_event_container} key={uuidv4()}>
-                                {(i === 0) ? <h4 className={styles.date}>{element}</h4> : null}
+                                {(i === 0) ? <h4 className={styles.date}>{element[i].date}</h4> : null}
                                 <div className={styles.upcoming_event_details} >
                                     <div className={styles.event_icons} >
-                                        <AiOutlineEdit className={styles.event_edit_icon} onClick={() => editTask(tasks[element][i])}/>
-                                        <IoClose className={styles.event_close_icon} onClick={() => deleteTask(tasks[element][i])}/>
+                                        <AiOutlineEdit className={styles.event_edit_icon} onClick={() => editTask(element[i])}/>
+                                        <IoClose className={styles.event_close_icon} onClick={() => deleteTask(element[i])}/>
                                     </div>
-                                    <h6 className={styles.event_title} >{tasks[element][i].title}</h6>
-                                    <p className={styles.event_location} >{tasks[element][i].location}</p>
-                                    <p className={styles.event_time} >{tasks[element][i].startTime} - {tasks[element][i].endTime}</p>
+                                    <h6 className={styles.event_title} >{element[i].title}</h6>
+                                    <p className={styles.event_location} >{element[i].location}</p>
+                                    <p className={styles.event_time} >{element[i].startTime} - {element[i].endTime}</p>
                                 </div>
                             </div>
                         );
                     }
-                }
+                })
                 return eventsList;
             }
             return eventsDisplayed();
