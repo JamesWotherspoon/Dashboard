@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { FcGoogle } from 'react-icons/fc';
 import styles from './home.module.scss';
 
 const SearchBar = () => {
     const [searchValue, setSearchValue] = useState('');
+
     const onSearch = (event) => {
         event.preventDefault();
-        const searchQuery = 'https://www.google.com/search?q=';
-        window.open(searchQuery + searchValue, '_blank');
+        const searchUrl = 'https://www.google.com/search?q=';
+        window.open(searchUrl + searchValue, '_self');
         setSearchValue('');
     };
+
     const handleChange = (event) => {
         setSearchValue(event.target.value);
     };

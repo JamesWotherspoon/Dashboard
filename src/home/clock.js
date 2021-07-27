@@ -2,23 +2,25 @@ import React, { useEffect, useState } from 'react';
 import styles from './home.module.scss';
 
 const Clock = () => {
-    const [time, setTime] = useState(() => {
-        let date = new Date();
-        return `${date.getHours()}:${(date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes()}`
-    });
+    const [time, setTime] = useState();
 
-    const tick = () => {
-        let date = new Date();
-
-        setTime(() => `${date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}` );
-    };
-
+    const updateTime = () => {
+        let timeNow = (new Date()).toTimeString();
+        timeNow = timeNow.slice(0, 5)
+        setTime(timeNow)
+    }
+    
     useEffect(() => {
-        const tickInterval = setInterval(() => tick(), 60000);
+
+        updateTime();
+
+        const checkTimeInterval = setInterval(() => updateTime(), 10000);
+
         return () => {
-            clearInterval(tickInterval);
+            clearInterval(checkTimeInterval);
         }
-    });
+
+    }, []);
 
     return (
         <section className={styles.clock}>

@@ -222,12 +222,6 @@
   .weather_display_container {
     position: relative;
 
-    .weather_header {
-      width: 60%;
-      padding: 3px 0 0 0;
-      letter-spacing: 2px;
-      font-weight: 600; 
-    }
     .current_weather_container {
       display: flex;
       height: 90px;
@@ -235,6 +229,12 @@
 
       font-weight: 400;
 
+      .weather_header {
+        width: 60%;
+        padding: 3px 0 0 0;
+        letter-spacing: 2px;
+        font-weight: 600; 
+      }
       hr {
         height: 80%;
         margin: auto;

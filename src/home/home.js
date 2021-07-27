@@ -2,11 +2,11 @@ import React from 'react';
 
 import SearchBar from './searchBar';
 import DisplayDate from './displayDate';
-import Weather from './weather';
+import Weather from './weather/WeatherApi';
 import styles from './home.module.scss';
-import Shortcuts from './shortcuts';
+import Shortcuts from './shortcuts/Shortcuts';
 import UpcomingEvents from './upcomingEvents';
-import NewsApi from './newsApi';
+import NewsApi from './news/NewsApi';
 import Clock from './clock';
 
 const home = () => {
