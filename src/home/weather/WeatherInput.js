@@ -1,6 +1,6 @@
 
 import React, { useState} from 'react';
-import styles from '../home.module.scss';
+import styles from './WeatherApi.module.scss';
 
 
 const WeatherInput = ({ handlePostcode }) => {
@@ -21,10 +21,10 @@ const WeatherInput = ({ handlePostcode }) => {
 
 
     return (
-        <form className={styles.postcode_input_container}>
-            <label htmlFor="postcode" >What is your Postcode? </label>
-            <div className={styles.input_button_container}>
-                <input type="text" name="postcode" value={inputPostcode} onChange={inputChange} pattern="[a-zA-Z0-9]" minLength="4" maxLength="8" required/>
+        <form className={styles.postcode_form}>
+            <label htmlFor="postcode" className={styles.postcode_label} >What is your postcode?</label>
+            <div className={styles.input_container}>
+                <input type="text" name="postcode" value={inputPostcode} onChange={inputChange} pattern="[a-zA-Z0-9]" minLength="4" maxLength="8" required/>               
                 <button onClick={submitPostcode}>Submit</button>
             </div>
         </form>

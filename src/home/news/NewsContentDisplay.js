@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../home.module.scss';
+import styles from './NewsApi.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import { BsClock } from 'react-icons/bs';
 import { GrFormNext } from 'react-icons/gr';
@@ -30,15 +30,15 @@ export default function NewsContentDisplay({newsStories}) {
             
             newsDisplay.push(
                 <div className={styles.news_article_container} key={uuidv4()} id={`_${i}`} >
-                    <div className={styles.news_article_title_container} >
+                    <div className={styles.news_article_title_container}>
                         <a href={newsStories[i].link} >
-                            <h2 className={styles.news_article_title} >{newsStories[i].title}</h2>
+                            <h2 className={styles.news_article_title}>{newsStories[i].title}</h2>
                         </a>
                         <h2 className={styles.news_article_source} >{newsStories[i].source}</h2>
                     </div>
                     <div className={styles.news_article_published_container}>
-                        <BsClock />
-                        <h6>{newsStories[i].published}</h6>
+                        <BsClock className={styles.published_icon} />
+                        <h6 className={styles.published_date}>{newsStories[i].published}</h6>
                     </div>
                 </div>
             )
@@ -52,7 +52,6 @@ export default function NewsContentDisplay({newsStories}) {
             <GrFormPrevious onClick={previousArticle} className={styles.arrow_icon} />
             {displayNewsArticles(currentArticleIndex)}
             <GrFormNext onClick={nextArticle} className={styles.arrow_icon} />
-
         </div>
     )
 }

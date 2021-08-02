@@ -1,13 +1,13 @@
 import React from 'react';
 
-import SearchBar from './searchBar';
-import DisplayDate from './displayDate';
+import SearchBar from './searchBar/SearchBar';
+import DisplayDate from './displayDate/DisplayDate';
 import Weather from './weather/WeatherApi';
 import styles from './home.module.scss';
 import Shortcuts from './shortcuts/Shortcuts';
-import UpcomingEvents from './upcomingEvents';
+import Reminders from './reminders/Reminders';
 import NewsApi from './news/NewsApi';
-import Clock from './clock';
+import Clock from './clock/Clock';
 
 const home = () => {
     return (
@@ -17,9 +17,8 @@ const home = () => {
             <Clock />
             <Weather />
             <Shortcuts />
-            <UpcomingEvents />
-            <NewsApi />
-            
+            <Reminders />
+            <NewsApi />            
         </div> 
     )
 }

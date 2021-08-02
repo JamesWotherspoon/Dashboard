@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import styles from './home.module.scss';
+import home from '../home.module.scss';
+import styles from './SearchBar.module.scss';
+
 
 const SearchBar = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -16,7 +18,7 @@ const SearchBar = () => {
     };
 
     return (
-        <section className={`${styles.search_bar} ${styles.component}`}>
+        <section className={`${home.search_bar} ${styles.search_bar}`}>
             <form>
                 <input type="text" placeholder="Google..." value={searchValue} onChange={handleChange} />
                 <button type="submit" onClick={onSearch}>Search</button>

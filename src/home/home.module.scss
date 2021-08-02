@@ -3,467 +3,58 @@
   src: local('digital'), url(../fonts/digital-7.mono.woff) format('woff');
 }
 
-* {
-  font-weight: inherit;
-  font-family: Arial, Helvetica, sans-serif;
-  color: black;
-}
 
 .home {
+  height: 100%;
+  width: 100%;
 
   display: grid;
   grid: 1fr 1fr 1fr 1fr 1fr 2fr 1fr 1fr 1fr 1fr 1fr / repeat(12, 1fr);
-  width: calc(93vw - 100px);
-  height: 90vh;
-  margin: 10px 10px 10px 100px;
-  justify-items: stretch;
   grid-gap: 25px;
+  justify-items: stretch;
+  
+  padding: 50px 80px;
 
-    
-  %component-background {
-    
+  %main_component {
+    position: relative;
+    border: 2px solid grey;
     border-radius: 10px;
-    background-color: rgba(250, 250, 250, 1);
-    backdrop-filter: blur(5px);
+    
+    //backdrop-filter: blur(5px);
   }
   
-  .greeting {
-    grid-area: 1 / 1 / 3 / 5;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background-color: rgba(250, 250, 250, 0.9);
-    backdrop-filter: blur(3px);
-  }    
   .display_date {
     grid-area: 1 / 1 / 4 / 3;
-    @extend %component-background;
-    border: 0px;
-
-    .display_date_top_decoration_container {
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      background-color: rgb(244, 65, 61);
-      width: 100%;
-      height: 30px;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-
-      .ring_holes {
-        background-color: rgb(184, 49, 46);
-        width: 15px;
-        height: 15px;
-        border-radius: 10px;
-        .ring_binders {
-          height: 27px;
-          width: 8px;
-          border-radius: 10px;
-          position: relative;
-          top: -16px;
-          left: 3px;
-          background-color: rgb(172, 172, 172);
-        }
-      }
-    }
+    @extend %main_component;
   }
   .clock {
     grid-area: 1 / 3 / 4 / 5;
-   
+    @extend %main_component;
   }
   .search_bar {
     grid-area: 4 / 1 / 6 / 5;
-
+    @extend %main_component;
   }
   .weather {
     grid-area: 1 / 5 / 6 / 10;
-    
-
+    @extend %main_component;
   }
   .news_api {
     grid-area: 7 / 1 / 13 / 10;
-    
+    @extend %main_component;
   }
-  .upcoming_events {
+  .reminders {
     grid-area: 1 / 10 / 13 / 13;
-
+    @extend %main_component;
   }
   .shortcuts {
-    //background-color: rgba(250, 250, 250, 0);
     grid-area: 6 / 1 / 7 / 10;
-    border-radius: 10px;
-
-  }
-}
-
-.search_bar {
-      
-  display: flex;
-  align-items: center;
-
-
-  .google_icon {
-    font-size: 36px;
-  }
-  form {
-    height: 30px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    input {
-      height: 40px;
-      border-radius: 30px;
-      margin: 0 10px 0 0;
-      padding: 10px;
-      min-width: 150px;
-      width: 80%;
-      font-size: 20px;
-      &::placeholder {
-        letter-spacing: 1px;
-      }
-      &:focus {
-        outline: none;
-      }
-
-    }
-    
-    button {
-      height: 40px;
-      width: 100px;
-      border-radius: 30px;
-      margin: 0 20px 0 0;
-      padding: 5px;
-      font-size: 20px;
-
-    }
-
+    @extend %main_component;
   }
 }
 
 
 
-.weather {
-  position: relative;
-
-  .postcode_edit_container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    width: auto;
-    justify-content: space-between;
-    padding: 5px;
-    .weather_display_postcode {
-      font-size: 22px;
-    }
-    .edit_icon {
-      width: 40px;
-    }
-    z-index: 5;
-  }
-
-  .default_handling_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .postcode_input_container {
-    height: 100%;
-     
-    .edit_icon {      
-      width: 40px;
-      position: absolute;
-      top: 5px;
-      right: 5px;
-    }
-    form {
-      
-      height: 100%;
-      width: 100%;
 
 
-      label {
-        font-size: 32px;
-        display: block;
-        margin: 80px 0 0 0;
-      }
-      .input_button_container {
-        margin: 35px 0 0 0;
 
-        input {
-          border-radius: 20px;
-          height: 30px;
-          width: 150px;
-          font-size: 18px;
-          text-align: center;
-          margin: 0 20px 0 0;
-
-          &:focus {
-            outline: none;
-          }
-  
-        }
-        button {
-          border-radius: 20px;
-          height: 30px;
-          font-size: 18px;
-          width: 90px;
-  
-        }
-      }
-
-    }
-  }
-
-  .weather_display_container {
-    position: relative;
-
-    .current_weather_container {
-      display: flex;
-      height: 90px;
-      justify-content: space-evenly;
-
-      font-weight: 400;
-
-      .weather_header {
-        width: 60%;
-        padding: 3px 0 0 0;
-        letter-spacing: 2px;
-        font-weight: 600; 
-      }
-      hr {
-        height: 80%;
-        margin: auto;
-      }
-      
-      .currentWeather_temp_icon_container {
-        width: 60%;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        
-        .current_weather_icon {
-          width: 80px;
-          height: auto;
-        }
-        h5 {
-          font-size: 38px;
-        }
-      }
-      .currentWeather_max_min_container{
-        width: 20% ;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-        font-size: 26px;
-        font-weight: 300;
-        
-        .min_temp {
-          letter-spacing: 2px;
-        }
-      }
-      .sunset_container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        width: 20%;
-        padding: 15px 0 0 0;
-
-        letter-spacing: 2px;
-        .sunset_icon {
-          color: rgb(182, 182, 182);
-        }
-      }
-    }
-
-    .forcast_container {
-        
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-      height: 130px;
-
-
-      .forcast_day_container {
-        width: 20%;
-      
-        h3 {
-          font-size: 16px;
-        }
-
-        .forcast_weather_icon {
-            width: 60px;
-        }
-
-        .forcast_day_data {
-          
-          position: relative;
-          top: -4px;
-          font-size: 18px;
-          display: flex;
-          justify-content: space-between;
-          padding: 3px;
-          .forcast_min_max_temp {
-            margin: auto;
-          }
-
-          .forcast_rain {
-            display: flex;
-            align-items: center;
-            margin: auto;
-
-            .rain_icon {
-              color: rgb(95, 197, 221);
-              font-size: 18px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.clock {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-    .time {
-
-      font-size: 64px;
-      
-      font-family: Arial, Helvetica, sans-serif;
-    }
-}
-
-.news_api {
-  position: relative;
-  overflow: hidden;
-  
-  .news_api_content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-
-    .news_article_container {
-
-      width: 25%;
-      min-width: 120px;
-      height: 100%;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      border-radius: 10px;
-      background-color: white;
-      text-align: left;
-      
-
-      .news_article_title_container {
-        height: auto;
-        padding: 5px;
-
-        .news_article_title {
-          
-          font-size: 18px;
-          font-weight: 600;
-        }    
-      }
-      .news_article_published_container {
-        
-        width: 100%;
-        font-size: 16px;
-
-
-        overflow: hidden;
-        
-      }
-
-    }
-    .arrow_icon {
-      font-size: 82px;
-      
-    }
-  }
-}
-
-.error_message_container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  h2 {
-    margin: 10px;
-    text-align: left;
-    font-size: 18px;
-  }
-  h5 {
-    margin: 20px 10px;
-    text-align: left;
-    font-size: 16px;
-  }
-  .retry_api{
-    margin: 20px;
-    padding: 10px ;
-    font-size: 42px; 
-  }
-
-}
-
-.container_for_opacity_change_on_loading {
-  opacity: 0;
-}
-.container_for_opacity_change_on_loaded {
-  opacity: 1;
-  transition: opacity 1.5s;
-}
-.is_loading {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .loading_ring_container{
-    width: 60px;
-    height: 60px;
-    margin: 20px;
-    border-radius: 80px;
-    background: linear-gradient(0deg, rgb(131, 131, 131) 30%, rgb(255, 255, 255) 0%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: loadingRingAnimation 1.5s infinite linear;
-
-    .loading_ring {
-      width: 55px;
-      height: 55px;
-      border-radius: 60px;
-      background: radial-gradient(  rgb(67, 71, 114), rgb(0, 0, 25));
-      background-attachment: fixed;
-    }
-  }
-  
-}
-
-
-@keyframes loadingRingAnimation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}

@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "abort-controller": "^3.0.0",
+    "open-graph-scraper-lite": "^1.1.1",
     "uuid": "^8.3.2"
   }
 }

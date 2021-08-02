@@ -1,0 +1,74 @@
+
+
+.error_message_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h2 {
+      margin: 10px;
+      text-align: left;
+      font-size: 18px;
+    }
+    h5 {
+      margin: 20px 10px;
+      text-align: left;
+      font-size: 16px;
+    }
+    .retry_api{
+      margin: 20px;
+      padding: 10px ;
+      font-size: 42px; 
+    }
+  
+  }
+  
+  .container_for_opacity_change_on_loading {
+    opacity: 0;
+  }
+  .container_for_opacity_change_on_loaded {
+    opacity: 1;
+    transition: opacity 1.5s;
+  }
+  .is_loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    .loading_ring_container{
+      width: 60px;
+      height: 60px;
+      margin: 20px;
+      border-radius: 80px;
+      background: linear-gradient(0deg, rgb(131, 131, 131) 30%, rgb(255, 255, 255) 0%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: loadingRingAnimation 1.5s infinite linear;
+  
+      .loading_ring {
+        width: 55px;
+        height: 55px;
+        border-radius: 60px;
+        background: radial-gradient(  rgb(67, 71, 114), rgb(0, 0, 25));
+        background-attachment: fixed;
+      }
+    }
+    
+  }
+  
+  
+  @keyframes loadingRingAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

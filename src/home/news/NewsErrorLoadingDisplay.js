@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../home.module.scss';
+import styles from './NewsApi.module.scss';
 import { IoMdRefresh } from 'react-icons/io';
 
 const NewsErrorLoadingDisplay = ({ errorMessage, retryFetchNews, isLoading}) => {

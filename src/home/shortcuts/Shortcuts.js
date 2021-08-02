@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import styles from './shortcuts.module.scss';
-import home_styles from '../home.module.scss';
-import ShortcutForm from './ShortcutForm';
+import styles from './Shortcuts.module.scss';
+import home from '../home.module.scss';
+import AddNewShortcut from './AddNewShortcut';
 import { BsThreeDots } from 'react-icons/bs';
 import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
@@ -28,8 +28,6 @@ const Shortcuts = () => {
             formOpen: false}
         )
     );
-    const [addShortcutClicked, setAddShortcutClicked] = useState();
-    
     const [shortcutEdit, setShortcutEdit] = useState(false);
 
     const presetShortcuts = useMemo(() => [
@@ -79,9 +77,8 @@ const Shortcuts = () => {
             index: 8,
             formOpen: false}
     ], [])
-
+    
     useEffect(() => {
-        
         const storedShortcuts = JSON.parse( localStorage.getItem('shortcuts') );
         if(storedShortcuts === null){
             setShortcutList(presetShortcuts);
@@ -90,56 +87,33 @@ const Shortcuts = () => {
         }
     }, [presetShortcuts])
 
-    const faviconUrlEdit = (url) => {
-        let prefix = 'https://api.statvoo.com/favicon/?url=';
-        url.replace('https://', '');
-        return prefix + url 
-    }
-
-    const addShortcutFormOpen = (event) => {
-        let index = event.target.id.replace('_', '');
-        index = Number(index);
-        console.log(index);
-        let prev = [...addShortcutClicked]; 
-        prev.splice(index, 1, !prev[index]);
-        setAddShortcutClicked(prev);
-        
-        setShortcutEdit(false)
-    }
-
     useEffect(() => {
         localStorage.setItem('shortcuts', JSON.stringify(shortcutList));
     }, [shortcutList]);
+
+    const addShortcut = (index, shortcutToAdd) => {
+        const siteUrl = shortcutToAdd.url.replace('https://', '');
+        const faviconUrl = `https://api.statvoo.com/favicon/?url=${siteUrl}`;
+        setShortcutList(prev => {
+            let shortcutListClone = [...prev];
+            shortcutListClone[index] = {url: shortcutToAdd.url, name: shortcutToAdd.name, image: faviconUrl, formOpen: false};
+            return shortcutListClone
+        })
+    }
 
     const deleteShortcut = (event, index) => {
         event.stopPropagation();
         setShortcutList(prev => {
             let shortcutListClone = [...prev];
-            shortcutListClone[index] = {url: '', name: '', image: '', formOpen: false}
+            shortcutListClone[index] = {url: '', name: '', image: '', formOpen: false};
             return shortcutListClone
         })
     }
+
 
     const followLink = (i) => {
+        if(shortcutEdit) return
         window.open(shortcutList[i].url, '_self');
-    }
-    
-    const addShortcut = (index, shortcutToAdd) => {
-        const url = faviconUrlEdit(shortcutToAdd.url);
-
-        setShortcutList(prev => {
-            let shortcutListClone = [...prev];
-            shortcutListClone[index] = {url: shortcutToAdd.url, name: shortcutToAdd.name, image: url, formOpen: false}
-            return shortcutListClone
-        })
-    }
-
-    const toggleForm = (index) => {
-        setShortcutList(prev => {
-            let shortcutListClone = [...prev];
-            shortcutListClone[index] = {url: '', name: '', image: '', formOpen: !prev[index].formOpen}
-            return shortcutListClone
-        })
     }
     
     const shortcutDisplay = () => {
@@ -152,18 +126,23 @@ const Shortcuts = () => {
                         <div className={styles.shortcut_delete_circle}>
                             <IoClose onClick={(event) => deleteShortcut(event, i)} className={styles.delete_shortcut}/>
                         </div>) : null }
-                        <img src={(shortcutList[i].image === null)? (faviconUrlEdit(shortcutList[i].url)) : (shortcutList[i].image)} alt={shortcutList[i].name} className={(shortcutList[i].image == null) ? (styles.favicon_retrieved) : (styles.favicon)} />
+                        <img src={(shortcutList[i].image)} alt={shortcutList[i].name} className={styles.favicon} />
                     </div> 
                 )
             } else {
                 shortcutDisplayArray.push(
-                    <ShortcutForm index={i} addShortcut={addShortcut} toggleForm={toggleForm} shortcutList={shortcutList} key={uuidv4()}/>
+                    <AddNewShortcut index={i} addShortcut={addShortcut} shortcutList={shortcutList} key={uuidv4()}/>
                 )
             }
         };
 
-        // edit icon 
-        shortcutDisplayArray.push(
+        return shortcutDisplayArray
+    };
+    
+
+    return (
+        <section className={`${home.shortcuts} ${styles.shortcuts}`}>      
+            {shortcutDisplay()}
             <div key={`shortcuts_blank_edit`} className={styles.shortcut_square} >
                 < BsThreeDots onClick={() => setShortcutEdit(prev => !prev)} className={styles.edit_shortcut_icon}/>
                 {(shortcutEdit) ? 
@@ -171,14 +150,6 @@ const Shortcuts = () => {
                     < GrPowerReset onClick={() => setShortcutList(presetShortcuts)} className={styles.reset_shortcut_icon} />
                 </div>) : null}
             </div>
-        )
-        return shortcutDisplayArray
-    };
-    
-
-    return (
-        <section className={`${home_styles.shortcuts} ${styles.shortcuts}`}>      
-            {shortcutDisplay()}
         </section>
     )
 }

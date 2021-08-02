@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useCallback, useContext} from 'react';
-import styles from '../home.module.scss';
+import React, { useState, useEffect } from 'react';
+import home from '../home.module.scss';
+import styles from './WeatherApi.module.scss';
+
 import AbortController from "abort-controller";
 import WeatherInput from './WeatherInput';
 import { BsThreeDots } from 'react-icons/bs';
@@ -15,6 +17,7 @@ const WeatherApi = () => {
     // Error and loading handling
     const [errorMessage, setErrorMessage] = useState();
     const [statusOfWeatherApi, setStatusOfWeatherApi] = useState('loading');
+    const [retryFetch, setRetryFetch] = useState(false);
 
     useEffect(() => {
         setPostcode( JSON.parse( localStorage.getItem('postcode') ) );
@@ -45,17 +48,21 @@ const WeatherApi = () => {
                 })
             ])
             .then(responses => {
-                console.log(responses.status)
+
+
                 if(responses[0].status === 200 && responses[1].status === 200){ 
-                    
+
                     console.log('Weather: Request Successfull')
                     return Promise.all(responses.map((response) => {
                         return response.json()
                     }))
 
                 } else {
+                    let rejectedResponseStaus;
+                    if(responses[0].status !== 200) rejectedResponseStaus = responses[1].status
+                    if(responses[1].status !== 200) rejectedResponseStaus = responses[0].status
                     throw new Error(
-                        'HTTP Status: ' + responses.status //check here
+                        'HTTP Status: ' + rejectedResponseStaus 
                     );
                 }      
             })
@@ -90,9 +97,8 @@ const WeatherApi = () => {
 
             })
             .catch( error => {           
-                //alert(error);
-                localStorage.removeItem('postcode');
                 setErrorMessage(error.message);
+                console.log(error)
                 setStatusOfWeatherApi('error');
             })
             
@@ -102,16 +108,15 @@ const WeatherApi = () => {
         } else {
             setStatusOfWeatherApi('noPostcodeParameterSubmitted')
         }
-    }, [postcode])
+    }, [postcode, retryFetch])
 
-    const handlePostcodeChange = (postcodeSubmit) => {
-        
-        setPostcode(postcodeSubmit);
-        // if postcode submitted is the same as current, data already fetched swap to api content display
-        if(postcode === postcodeSubmit){
+    const handlePostcodeChange = (postcodeSubmit) => {        
+        if(postcode === postcodeSubmit && weatherApiData){
             setIsInputOpen(false);
-        }     
-        
+            return
+        }
+        if(postcode === postcodeSubmit) setRetryFetch(prev => !prev);
+        setPostcode(postcodeSubmit);
     }
 
     const handleIsInputOpen = (isOpen) => {
@@ -122,34 +127,50 @@ const WeatherApi = () => {
         }     
     }
 
-    const displayApiContent = () => {
-        return (
-            weatherApiData ? (
-                <WeatherDisplayData weatherApiData={weatherApiData}/>
-            ) : (
-                <WeatherDefaultMessages statusOfWeatherApi={statusOfWeatherApi} togglePostcodeInput={handleIsInputOpen} errorMessage={errorMessage} />
-            )
-        )
-
-    }
-
-
     return (
-        <section className={`${styles.weather} ${styles.component}`}>
-            <div className={styles.postcode_edit_container}>
-                <h3 className={styles.weather_display_postcode}>{postcode}</h3>
-                <BsThreeDots className={styles.edit_icon} onClick={handleIsInputOpen}/>  
-            </div>
-
+        <section className={`${home.weather} ${styles.weather}`}> 
+            <div className={styles.options_icon_container}>  
+                <BsThreeDots className={styles.options_icon} onClick={handleIsInputOpen}/>
+            </div>        
             {isInputOpen ? (
-                <WeatherInput handlePostcode={handlePostcodeChange} togglePostcodeInput={handleIsInputOpen}/>
+                <WeatherInput 
+                    handlePostcode={handlePostcodeChange} 
+                    togglePostcodeInput={handleIsInputOpen}
+                />
 
             ) : (               
-                displayApiContent()
+                <WeatherApiResponse
+                    weatherApiData={weatherApiData}
+                    statusOfWeatherApi={statusOfWeatherApi} 
+                    togglePostcodeInput={handleIsInputOpen} 
+                    errorMessage={errorMessage} 
+                    retryFetch={() => setRetryFetch(prev => !prev)}
+                    postcode={postcode}
+                />
             )}
         </section>
             
 
+    )
+}
+
+function WeatherApiResponse({ weatherApiData, statusOfWeatherApi, togglePostcodeInput, errorMessage, retryFetch, postcode}) {
+    return (
+        <>
+            <h2 className={styles.current_postcode}>{postcode}</h2>
+            {weatherApiData ? (
+                <WeatherDisplayData 
+                    weatherApiData={weatherApiData}
+                />
+            ) : (
+                <WeatherDefaultMessages 
+                    statusOfWeatherApi={statusOfWeatherApi} 
+                    togglePostcodeInput={togglePostcodeInput} 
+                    errorMessage={errorMessage} 
+                    retryFetch={retryFetch}
+                />
+            )}     
+        </>
     )
 }
 

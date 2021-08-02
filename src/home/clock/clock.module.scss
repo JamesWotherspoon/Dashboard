@@ -1,0 +1,11 @@
+
+.clock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .time {
+    font-size: 64px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}

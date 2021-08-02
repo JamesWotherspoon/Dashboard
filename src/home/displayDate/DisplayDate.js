@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import styles from './home.module.scss';
+import React from 'react';
+import home from '../home.module.scss';
+import styles from './displayDate.module.scss';
 
 const DisplayDate = () => {
     const currentDate = new Date();
@@ -8,8 +9,8 @@ const DisplayDate = () => {
     date = Number(date);
 
     return (
-        <section className={`${styles.display_date} ${styles.component}`} >
-            <div className={styles.display_date_top_decoration_container}>
+        <section className={`${home.display_date} ${styles.display_date}`} >
+            <div className={styles.top_decoration_container}>
                 <div className={styles.ring_holes} >
                     <div className={styles.ring_binders} >
 

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { IoMdRefresh } from 'react-icons/io';
 import { IoIosArrowRoundBack } from 'react-icons/io';
-import styles from '../home.module.scss';
+import styles from './WeatherApi.module.scss';
 
-const WeatherDefaultMessages = ({statusOfWeatherApi, togglePostcodeInput, errorMessage}) => {
+const WeatherDefaultMessages = ({statusOfWeatherApi, togglePostcodeInput, errorMessage, retryFetch}) => {
 
     const renderSwitchStatus = (status) => {
         switch(status) {
@@ -19,9 +19,8 @@ const WeatherDefaultMessages = ({statusOfWeatherApi, togglePostcodeInput, errorM
             case 'error':
                 return ( 
                     <div className={styles.error_message_container}>
-                        <div className={styles.retry_api}>
-                            <IoMdRefresh  onClick={togglePostcodeInput}/>
-                        </div>     
+                        <IoMdRefresh className={styles.retry_api_icon} onClick={retryFetch}/>
+                        <IoIosArrowRoundBack className={styles.retry_api_icon} onClick={togglePostcodeInput}/>
                         <div>
                             <h2>Weather API not successfull</h2>
                             <h2>{errorMessage}</h2>

@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect} from 'react';
-import styles from '../home.module.scss';
+import home from '../home.module.scss';
+import styles from './NewsApi.module.scss';
+import NewsImageApiHelper from './NewsImageApiHelper'
+
 
 import NewsContentDisplay from './NewsContentDisplay';
 import NewsErrorLoadingDisplay from './NewsErrorLoadingDisplay';
@@ -46,6 +49,7 @@ const NewsApi = () => {
                     published: publishedDate,
                     link: data.articles[i].link
                 })
+                NewsImageApiHelper(data.articles[i].link)
             }
 
             setNewsStories(newsArray);
@@ -71,11 +75,17 @@ const NewsApi = () => {
     }, [])
 
     return (
-        <section className={styles.news_api}>           
+        <section className={`${home.news_api} ${styles.news_api}`}>           
             {(newsStories) ? (
-                <NewsContentDisplay newsStories={newsStories}/>
+                <NewsContentDisplay 
+                    newsStories={newsStories}
+                />
             ) : (
-                <NewsErrorLoadingDisplay errorMessage={errorMessage} retryFetchNews={fetchNews} isLoading={isLoading}/>
+                <NewsErrorLoadingDisplay 
+                    errorMessage={errorMessage} 
+                    retryFetchNews={fetchNews} 
+                    isLoading={isLoading}
+                />
             )}
         </section>
     )

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styles from './home.module.scss';
+import home from '../home.module.scss';
+import styles from './clock.module.scss';
 
 const Clock = () => {
     const [time, setTime] = useState();
@@ -23,7 +24,7 @@ const Clock = () => {
     }, []);
 
     return (
-        <section className={styles.clock}>
+        <section className={`${home.clock} ${styles.clock}`}>
             <h2 className={styles.time}>{time}</h2>
         </section>
     )

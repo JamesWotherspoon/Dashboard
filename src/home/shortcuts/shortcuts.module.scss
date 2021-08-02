@@ -62,69 +62,64 @@
             .delete_shortcut {
                 color: rgb(228, 228, 228);
             }
-        }
-
-        .form_container {
-            background-color: #555;
-            color:  #fff;
-            position: absolute;
-            border-radius: 5px;
-            width: 300px;
-            height: 130px;
-            top: calc(100% + 10px);
-            z-index: 9;
-
-            opacity: 1;
-            transition: opacity 0.5s;
-            &::before {
-                content: "";
-                position: absolute;
-                bottom: 100%;
-                left: 50%;
-                margin-left: -10px;
-                border-width: 10px;
-                border-style: solid;
-                border-color: transparent transparent #555 transparent;
-            }
-            .close_add_shortcut {
-                float: right;                
-            }
-            form {
-
-                .name_container {
-                    
-                    width: 100%;
-                    margin: 20px 10px 0 10px;
-                    
-                }
-                .url_container{
-                    
-                    
-                    width: 100%;
-                    
-                }
-                input {
-                    background-color:  #fff;
-                    margin: 0 5px 0px 10px;
-                    
-                }
-                label {
-                    font-size: 18px;
-                }
-                button{
-                   border: 2px solid white;
-                   color:white;
-                   letter-spacing: 1px;
-                   background-color: transparent;
-                    padding: 4px 8px;
-                }
-            }
-        }
-
-        
+        }        
     }
+    .form_container {
+        background-color: #555;
+        color:  #fff;
+        position: absolute;
+        border-radius: 5px;
+        width: 300px;
+        height: 130px;
+        top: calc(100% + 10px);
+        z-index: 9;
 
+        opacity: 1;
+        transition: opacity 0.5s;
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent #555 transparent;
+        }
+        .close_add_shortcut {
+            float: right;                
+        }
+        form {
 
+            .name_container {
+                
+                width: 100%;
+                margin: 20px 10px 0 10px;
+                
+            }
+            .url_container{
+                
+                
+                width: 100%;
+                
+            }
+            input {
+                background-color:  #fff;
+                margin: 0 5px 0px 10px;
+                
+            }
+            label {
+                font-size: 18px;
+            }
+            button{
+               border: 2px solid white;
+               color:white;
+               letter-spacing: 1px;
+               background-color: transparent;
+                padding: 4px 8px;
+            }
+        }
+    }
 }
 
 @keyframes shortcut_shake {
