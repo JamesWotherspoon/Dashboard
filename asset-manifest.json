@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/Dashboard/static/css/main.417bf65c.chunk.css",
-    "main.js": "/Dashboard/static/js/main.038f2185.chunk.js",
-    "main.js.map": "/Dashboard/static/js/main.038f2185.chunk.js.map",
-    "runtime-main.js": "/Dashboard/static/js/runtime-main.09230581.js",
-    "runtime-main.js.map": "/Dashboard/static/js/runtime-main.09230581.js.map",
-    "static/js/2.d6c8b4bf.chunk.js": "/Dashboard/static/js/2.d6c8b4bf.chunk.js",
-    "static/js/2.d6c8b4bf.chunk.js.map": "/Dashboard/static/js/2.d6c8b4bf.chunk.js.map",
-    "index.html": "/Dashboard/index.html",
-    "static/css/main.417bf65c.chunk.css.map": "/Dashboard/static/css/main.417bf65c.chunk.css.map",
-    "static/js/2.d6c8b4bf.chunk.js.LICENSE.txt": "/Dashboard/static/js/2.d6c8b4bf.chunk.js.LICENSE.txt",
-    "static/media/amazon.bff96809.jpg": "/Dashboard/static/media/amazon.bff96809.jpg",
-    "static/media/bbc_news.19347497.png": "/Dashboard/static/media/bbc_news.19347497.png",
-    "static/media/home.module.scss": "/Dashboard/static/media/digital-7.mono.228b499f.woff",
-    "static/media/facebook.fa304c74.png": "/Dashboard/static/media/facebook.fa304c74.png",
-    "static/media/spotify.96e1ff73.png": "/Dashboard/static/media/spotify.96e1ff73.png",
-    "static/media/twitter.35408830.jpg": "/Dashboard/static/media/twitter.35408830.jpg",
-    "static/media/youtube.1587dd85.png": "/Dashboard/static/media/youtube.1587dd85.png"
+    "main.css": "/dashboard/static/css/main.166e134b.chunk.css",
+    "main.js": "/dashboard/static/js/main.038f2185.chunk.js",
+    "main.js.map": "/dashboard/static/js/main.038f2185.chunk.js.map",
+    "runtime-main.js": "/dashboard/static/js/runtime-main.e69dd663.js",
+    "runtime-main.js.map": "/dashboard/static/js/runtime-main.e69dd663.js.map",
+    "static/js/2.d6c8b4bf.chunk.js": "/dashboard/static/js/2.d6c8b4bf.chunk.js",
+    "static/js/2.d6c8b4bf.chunk.js.map": "/dashboard/static/js/2.d6c8b4bf.chunk.js.map",
+    "index.html": "/dashboard/index.html",
+    "static/css/main.166e134b.chunk.css.map": "/dashboard/static/css/main.166e134b.chunk.css.map",
+    "static/js/2.d6c8b4bf.chunk.js.LICENSE.txt": "/dashboard/static/js/2.d6c8b4bf.chunk.js.LICENSE.txt",
+    "static/media/amazon.bff96809.jpg": "/dashboard/static/media/amazon.bff96809.jpg",
+    "static/media/bbc_news.19347497.png": "/dashboard/static/media/bbc_news.19347497.png",
+    "static/media/home.module.scss": "/dashboard/static/media/digital-7.mono.228b499f.woff",
+    "static/media/facebook.fa304c74.png": "/dashboard/static/media/facebook.fa304c74.png",
+    "static/media/spotify.96e1ff73.png": "/dashboard/static/media/spotify.96e1ff73.png",
+    "static/media/twitter.35408830.jpg": "/dashboard/static/media/twitter.35408830.jpg",
+    "static/media/youtube.1587dd85.png": "/dashboard/static/media/youtube.1587dd85.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.09230581.js",
+    "static/js/runtime-main.e69dd663.js",
     "static/js/2.d6c8b4bf.chunk.js",
-    "static/css/main.417bf65c.chunk.css",
+    "static/css/main.166e134b.chunk.css",
     "static/js/main.038f2185.chunk.js"
   ]
 }
