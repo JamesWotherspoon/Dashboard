@@ -12,10 +12,14 @@
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-transition-group": "^4.4.2",
+    "unsplash-js": "^7.0.15",
     "use-state-with-callback": "^2.0.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -41,6 +45,8 @@
   },
   "devDependencies": {
     "abort-controller": "^3.0.0",
+    "http2-wrapper": "^2.1.1",
+    "open-graph-scraper": "^4.9.0",
     "open-graph-scraper-lite": "^1.1.1",
     "uuid": "^8.3.2"
   }

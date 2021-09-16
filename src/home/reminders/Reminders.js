@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import home from '../home.module.scss';
 import styles from './Reminders.module.scss';
-
-import { MdAdd } from 'react-icons/md';
+import { IoClose } from 'react-icons/io5';
 import ReminderAddEdit from './RemindersAddEdit';
 import ReminderDisplay from './ReminderDisplay';
+import { CSSTransition } from 'react-transition-group';
 
 
 const useOrderReminders = (reminderList) => {
+
+    if(!reminderList) return [];
+
     const reminders = [...reminderList];
+
     reminders.sort((a, b) => {
         const dateA = Date.parse(a.date) + parseInt(a.startTime);
         const dateB = Date.parse(b.date) + parseInt(b.startTime);
@@ -22,13 +26,13 @@ const useOrderReminders = (reminderList) => {
         return 0
     })
 
-    if(reminders.length) localStorage.setItem('reminders', JSON.stringify( reminders ));
+    localStorage.setItem('reminders', JSON.stringify( reminders ));
     
     return reminders
 }
 
 const Reminders = () => {
-    const [reminderList, setReminderList] = useState([])
+    const [reminderList, setReminderList] = useState()
     const [toggleForm, setToggleForm] = useState(false);
     const [keyOfEdit, setKeyOfEdit] = useState();
     const orderedReminders = useOrderReminders(reminderList);
@@ -42,6 +46,7 @@ const Reminders = () => {
     // handle adding tasks to tasks state 
     const addReminder = (reminderToAdd) => {
         callToggleForm(false);
+        if(!reminderList) setReminderList([reminderToAdd])
         setReminderList(prev => [...prev, reminderToAdd])
     }
 
@@ -52,6 +57,7 @@ const Reminders = () => {
 
     // deleting selected task from tasks state and localStorage
     const deleteReminder = (key) => {
+        
         callToggleForm(false);
         setReminderList(prev => {
             let listToUpdate = [...prev];
@@ -73,15 +79,52 @@ const Reminders = () => {
 
     return (
         <section className={`${home.reminders} ${styles.reminders}`}>
-            <div className={styles.component_title}>
-                <h3>Reminders</h3> 
-                <MdAdd onClick={callToggleForm}/>
+            <div className={styles.component_title_container}>
+                <h3 className={styles.component_title} >Reminders</h3>  
             </div>
-            {toggleForm ? (
-                <ReminderAddEdit remindersList={orderedReminders} keyOfEdit={keyOfEdit} callToggleForm={callToggleForm} deleteReminder={deleteReminder} addReminder={addReminder} />
-            ) : (
-                <ReminderDisplay remindersList={orderedReminders} editReminder={editReminder} deleteReminder={deleteReminder} /> 
-            )}
+                <CSSTransition 
+                    in={!toggleForm} 
+                    timeout={600} 
+                    classNames={{
+                        enter: styles.reminderDisplayEnter,
+                        enterActive: styles.reminderDisplayEnterActive,
+                        enterDone: styles.reminderDisplayEnterDone,
+                        exitActive: styles.reminderDisplayExitActive,
+                        exitDone: styles.reminderDisplayExitDone
+                    }}
+                    mountOnEnter
+                    unmountOnExit
+                >    
+                    <ReminderDisplay 
+                        remindersList={orderedReminders} 
+                        editReminder={editReminder} 
+                        deleteReminder={deleteReminder}
+                        callToggleForm={callToggleForm}
+                    /> 
+                </CSSTransition>
+                
+                <CSSTransition 
+                    in={toggleForm} 
+                    timeout={500} 
+                    classNames={{
+                        enter: styles.reminderFormEnter,
+                        enterActive: styles.reminderFormEnterActive,
+                        enterDone: styles.reminderFormEnterDone,
+                        exit: styles.reminderFormExit,
+                        exitActive: styles.reminderFormExitActive,
+                        exitDone: styles.reminderFormExitDone
+                    }}
+                    mountOnEnter
+                    unmountOnExit
+                >                       
+                    <ReminderAddEdit 
+                        remindersList={orderedReminders} 
+                        keyOfEdit={keyOfEdit} 
+                        deleteReminder={deleteReminder} 
+                        addReminder={addReminder}
+                        callToggleForm={callToggleForm}
+                    />
+                </CSSTransition>
         </section>
     )
 }

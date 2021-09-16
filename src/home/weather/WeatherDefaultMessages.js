@@ -1,7 +1,9 @@
 import React from 'react';
 import { IoMdRefresh } from 'react-icons/io';
 import { IoIosArrowRoundBack } from 'react-icons/io';
+import loading from '../apiLoading.module.scss';
 import styles from './WeatherApi.module.scss';
+
 
 const WeatherDefaultMessages = ({statusOfWeatherApi, togglePostcodeInput, errorMessage, retryFetch}) => {
 
@@ -9,9 +11,9 @@ const WeatherDefaultMessages = ({statusOfWeatherApi, togglePostcodeInput, errorM
         switch(status) {
             case 'loading':
                 return (
-                    <div className={`${styles.is_loading}`} >
-                        <div className={styles.loading_ring_container} >
-                            <div className={styles.loading_ring} >
+                    <div className={`${loading.is_loading}`} >
+                        <div className={loading.loading_ring_container} >
+                            <div className={loading.loading_ring} >
                             </div>
                         </div>
                     </div> 
@@ -19,20 +21,19 @@ const WeatherDefaultMessages = ({statusOfWeatherApi, togglePostcodeInput, errorM
             case 'error':
                 return ( 
                     <div className={styles.error_message_container}>
-                        <IoMdRefresh className={styles.retry_api_icon} onClick={retryFetch}/>
-                        <IoIosArrowRoundBack className={styles.retry_api_icon} onClick={togglePostcodeInput}/>
-                        <div>
-                            <h2>Weather API not successfull</h2>
                             <h2>{errorMessage}</h2>
-                            <h5>Please ensure you have entered the correct postcode</h5>
-                        </div>         
+                            <div className={styles.error_icon_container}>
+                                <IoIosArrowRoundBack className={styles.error_back_icon} onClick={togglePostcodeInput}/>
+                                <IoMdRefresh className={styles.retry_icon} onClick={retryFetch}/>
+                            </div>
+                            <h5>Please ensure you have entered the correct postcode</h5>       
                     </div>
                 );
             case 'noPostcodeParameterSubmitted':
                 return (
                     <div className={styles.default_handling_container}>
-                        <h2>Please Submit a Postcode</h2>
-                        <IoIosArrowRoundBack onClick={togglePostcodeInput}/>
+                        <h2>Please submit a postcode</h2>
+                        <IoIosArrowRoundBack className={styles.error_back_icon} onClick={togglePostcodeInput}/>
                     </div>
                 )
             default: 

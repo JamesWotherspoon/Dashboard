@@ -3,12 +3,13 @@ import styles from './Reminders.module.scss';
 import { IoClose } from 'react-icons/io5';
 import { AiOutlineEdit } from 'react-icons/ai';
 
-export default function ReminderDisplay({ remindersList, editReminder, deleteReminder }) {
+export default function ReminderDisplay({ remindersList, editReminder, deleteReminder, callToggleForm }) {
 
     let remindersArray = [];
 
     remindersList.forEach((reminder, index, reminderListArray)  => {
-        const displayNewDate = (index === 0 || reminder.date !== reminderListArray[index - 1].date) ? reminder.date : null;
+        let dateFormatted = new Date(Date.parse(reminder.date)).toLocaleDateString('en-GB');
+        const displayNewDate = (index === 0 || reminder.date !== reminderListArray[index - 1].date) ? dateFormatted : null;
 
         remindersArray.push(
             <div className={styles.upcoming_event_container} key={reminder.key}>             
@@ -26,5 +27,23 @@ export default function ReminderDisplay({ remindersList, editReminder, deleteRem
         )           
     })
         
-    return remindersArray
+    return (
+        <div className={styles.display_reminder_scroll_container}>
+            <div className={styles.reminder_list_container}>
+                {remindersArray}
+            </div>
+            <div className={`${styles.add_reminder_container} ${remindersArray.length ? styles.button_at_top : null}`}>
+                {(remindersArray.length) ? 
+                    null : (
+                    <h5 className={styles.no_reminder_set}>
+                        No reminders currently set
+                    </h5> 
+                )}
+                <div onClick={callToggleForm} className={styles.add_reminder_button} >
+                    <IoClose className={styles.add_icon} />
+                    <p>Add</p>
+                </div>
+            </div>
+        </div>
+    )
 }

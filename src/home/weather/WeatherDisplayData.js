@@ -34,7 +34,7 @@ const WeatherDisplayData = ({weatherApiData}) => {
         for(let i = 1; i < 6; i++){
             forcastWeatherArray.push(           
                 <div className={styles.forcast_day_container} key={uuidv4()}>
-                    <h3 >{dateToDisplay(i)}</h3>
+                    <h3 className={styles.forcast_date}>{dateToDisplay(i)}</h3>
                     <img src={`https://www.weatherbit.io/static/img/icons/${weatherApiData.forcastWeather[i].iconCode}.png`} className={styles.forcast_weather_icon} alt="weather" />
                     <div className={styles.forcast_day_data} >
                         <h5  className={styles.forcast_rain}>
@@ -43,10 +43,10 @@ const WeatherDisplayData = ({weatherApiData}) => {
                         </h5>
                         
                         <div key={`forcastTemp_${i}`} className={styles.forcast_min_max_temp} >
-                            <h5  >
+                            <h5>
                                 {Math.round(weatherApiData.forcastWeather[i].maxTemperture)}&deg;C
                             </h5>
-                            <h5 >
+                            <h5>
                                 {Math.round(weatherApiData.forcastWeather[i].minTemperture)}&deg;C
                             </h5>
                         </div>
@@ -73,12 +73,14 @@ const WeatherDisplayData = ({weatherApiData}) => {
                 <div className={styles.current_weather_container}>
                     <div className={styles.current_weather_icon_container} >
                         <img src={`https://www.weatherbit.io/static/img/icons/${weatherApiData.currentWeather.iconCode}.png `} className={styles.current_weather_icon} alt="weather" />       
-                        <h5>{Math.round(weatherApiData.currentWeather.temperture)}&deg;C</h5>    
+                        <h5 className={styles.current_temp}>{Math.round(weatherApiData.currentWeather.temperture)}&deg;C</h5>    
                     </div>
+                    <hr />
                     <div className={styles.current_weather_max_min_container} >
                         <h5 className={styles.max_temp}>{maxCurrentTemp}&deg;C</h5>
                         <h5 className={styles.min_temp}>{Math.round(weatherApiData.forcastWeather[0].minTemperture)}&deg;C</h5>
                     </div>
+                    <hr />
                     <div className={styles.current_weather_sunset_container} >
                         <GiSunset className={styles.sunset_icon} />
                         <h5>{weatherApiData.currentWeather.sunset}</h5>

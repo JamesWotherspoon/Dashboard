@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { IoClose } from 'react-icons/io5';
 import { v4 as uuidv4 } from 'uuid';
+import styles from './Reminders.module.scss';
+import { IoClose } from 'react-icons/io5';
 
-const RemindersAddEdit = ({ remindersList, keyOfEdit, callToggleForm, deleteReminder, addReminder })  => {
+const RemindersAddEdit = ({ remindersList, keyOfEdit, deleteReminder, addReminder, callToggleForm })  => {
 
     const [reminderInput, setReminderInput] = useState({
         date: (new Date()).toLocaleDateString('en-CA'),
@@ -44,22 +45,24 @@ const RemindersAddEdit = ({ remindersList, keyOfEdit, callToggleForm, deleteRemi
     };
 
     return (
-        <div >
-            <IoClose  onClick={() =>  callToggleForm() } />
+        <div className={styles.add_edit_task_container}>
             <form autoComplete="off" onSubmit={onFormSubmit} >
-                <input type="date" name="date" value={reminderInput.date} onChange={handleInputChange}/>
+                <IoClose onClick={callToggleForm} className={styles.close_form} />
+
+                <input type="date" name="date" className={styles.date_input} value={reminderInput.date} onChange={handleInputChange}/>
                 <input type="text" name="title" placeholder="Title" value={reminderInput.title} onChange={handleInputChange} required/>
-                <input type="text" name="location" placeholder="Location" value={reminderInput.location} onChange={handleInputChange}/>
-                <br />
-                <input id="starts" name="startTime" type="time" value={reminderInput.startTime} onChange={handleInputChange}/>
-                <span > to </span>
-                <input id="end" name="endTime" type="time" value={reminderInput.endTime} onChange={handleInputChange}/>
-                <br />
+                <input type="text" name="location" placeholder="Location" value={reminderInput.location} onChange={handleInputChange}/>         
+                <div className={styles.reminder_time_container}>
+                    <input id="starts" name="startTime" type="time" value={reminderInput.startTime} onChange={handleInputChange}/>
+                    <span className={styles.reminder_time_to}> to </span>
+                    <input id="end" name="endTime" type="time" value={reminderInput.endTime} onChange={handleInputChange}/>
+                </div>
+                
                 {(keyOfEdit) ? (
-                    <>
+                    <div className={styles.edit_delete_buttons}>
                         <button type="submit" name="editButton" >Edit Event</button>
                         <button type="button" onClick={() => deleteReminder(keyOfEdit) }>Delete</button>
-                    </>
+                    </div>
                 ):(
                     <button type="submit">Add Event</button>
                 )}

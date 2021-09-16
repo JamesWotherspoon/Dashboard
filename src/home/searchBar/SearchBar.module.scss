@@ -1,4 +1,6 @@
 
+$preset-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131, 131, 131, 0.1);
+
 .search_bar {
       
     display: flex;
@@ -9,18 +11,21 @@
       font-size: 36px;
     }
     form {
-      height: 30px;
       width: 100%;
       display: flex;
       align-items: center;
+
       input {
-        height: 40px;
-        border-radius: 30px;
+        height: 52px;
+        min-width: 70px;
         margin: 0 10px 0 0;
-        padding: 10px;
-        min-width: 150px;
-        width: 80%;
-        font-size: 20px;
+        width: 70%;
+        border: 1px solid #222;
+        border-radius: 5px;
+        padding: 0 10px;
+        font-size: 22px;
+        box-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131, 131, 131, 0.1);
+
         &::placeholder {
           letter-spacing: 1px;
         }
@@ -31,13 +36,28 @@
       }
       
       button {
-        height: 40px;
-        width: 100px;
-        border-radius: 30px;
-        margin: 0 20px 0 0;
-        padding: 5px;
-        font-size: 20px;
-  
+        height: 52px;
+        width: 15%;
+        min-width: 100px;
+        border-radius: 5px;
+        border: 1px solid #222;
+        margin: 0 20px;
+        padding: 10px 15px;
+        font-size: 22px;
+        letter-spacing: 1px;
+        box-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131, 131, 131, 0.1);
+        background-color: #efefef;
+        transform: scale(1);
+        transition: transform 0.2s;
+
+        &:hover {
+          background-color: #e6e6e6;
+        }
+
+        &:active {
+          transform: scale(0.94);
+          transition: transform 0.2s;
+        }
       }
   
     }

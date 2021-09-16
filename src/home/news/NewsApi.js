@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect} from 'react';
 import home from '../home.module.scss';
 import styles from './NewsApi.module.scss';
-import NewsImageApiHelper from './NewsImageApiHelper'
+
 
 
 import NewsContentDisplay from './NewsContentDisplay';
@@ -49,7 +49,7 @@ const NewsApi = () => {
                     published: publishedDate,
                     link: data.articles[i].link
                 })
-                NewsImageApiHelper(data.articles[i].link)
+                
             }
 
             setNewsStories(newsArray);

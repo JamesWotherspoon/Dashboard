@@ -21,11 +21,11 @@ const WeatherInput = ({ handlePostcode }) => {
 
 
     return (
-        <form className={styles.postcode_form}>
+        <form className={styles.postcode_form}  onSubmit={submitPostcode}>
             <label htmlFor="postcode" className={styles.postcode_label} >What is your postcode?</label>
             <div className={styles.input_container}>
-                <input type="text" name="postcode" value={inputPostcode} onChange={inputChange} pattern="[a-zA-Z0-9]" minLength="4" maxLength="8" required/>               
-                <button onClick={submitPostcode}>Submit</button>
+                <input type="text" name="postcode" value={inputPostcode} onChange={inputChange} pattern="[a-zA-Z0-9]{4,8}" minLength="4" maxLength="8" required/>               
+                <button type='submit' >Submit</button>
             </div>
         </form>
     );

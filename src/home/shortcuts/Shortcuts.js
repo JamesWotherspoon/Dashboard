@@ -3,7 +3,6 @@ import styles from './Shortcuts.module.scss';
 import home from '../home.module.scss';
 import AddNewShortcut from './AddNewShortcut';
 import { BsThreeDots } from 'react-icons/bs';
-import { GrPowerReset } from 'react-icons/gr';
 import { IoClose } from 'react-icons/io5';
 import bbc_image from '../../images/bbc_news.png';
 import facebook_image from '../../images/facebook.png';
@@ -14,13 +13,13 @@ import spotify_image from '../../images/spotify.png';
 import wikipedia_image from '../../images/wikipedia.png';
 
 import twitter_image from '../../images/twitter.jpg';
-import imbd_image from '../../images/imbd.png';
+
 import { v4 as uuidv4 } from 'uuid';
 
 
 const Shortcuts = () => {
     const [shortcutList, setShortcutList] = useState(
-        Array(9).fill({   
+        Array(11).fill({   
             name: '',
             url: '',
             image: '',
@@ -71,11 +70,21 @@ const Shortcuts = () => {
             image: twitter_image,
             index: 7,
             formOpen: false},
-        {   name: 'IMBD',
-            url: 'https://www.imdb.com/',
-            image: imbd_image,
+        {   name: '',
+            url: '',
+            image: '',
             index: 8,
-            formOpen: false}
+            formOpen: false},
+        {   name: '',
+            url: '',
+            image: '',
+            index: 9,
+            formOpen: false},
+        {   name: '',
+            url: '',
+            image: '',
+            index: 10,
+            formOpen: false},
     ], [])
     
     useEffect(() => {
@@ -118,7 +127,7 @@ const Shortcuts = () => {
     
     const shortcutDisplay = () => {
         let shortcutDisplayArray = [];
-        for(let i=0; i < 9; i++){
+        for(let i=0; i < 11; i++){
             if(shortcutList[i].name){
                 shortcutDisplayArray.push(
                     <div key={`${shortcutList[i].name}_${i}`} className={`${styles.shortcut_square} ${(shortcutEdit) ? styles.shake : null}`} onClick={() => followLink(i)}>
@@ -131,7 +140,13 @@ const Shortcuts = () => {
                 )
             } else {
                 shortcutDisplayArray.push(
-                    <AddNewShortcut index={i} addShortcut={addShortcut} shortcutList={shortcutList} key={uuidv4()}/>
+                    <AddNewShortcut 
+                        index={i} 
+                        addShortcut={addShortcut} 
+                        shortcutList={shortcutList} 
+                        key={uuidv4()}
+                        resetShortcuts={() => setShortcutList(presetShortcuts)}
+                    />
                 )
             }
         };
@@ -143,13 +158,9 @@ const Shortcuts = () => {
     return (
         <section className={`${home.shortcuts} ${styles.shortcuts}`}>      
             {shortcutDisplay()}
-            <div key={`shortcuts_blank_edit`} className={styles.shortcut_square} >
-                < BsThreeDots onClick={() => setShortcutEdit(prev => !prev)} className={styles.edit_shortcut_icon}/>
-                {(shortcutEdit) ? 
-                (<div key={`shortcuts_blank_reset`} className={styles.shortcut_square} id={styles.reset_icon}>
-                    < GrPowerReset onClick={() => setShortcutList(presetShortcuts)} className={styles.reset_shortcut_icon} />
-                </div>) : null}
-            </div>
+            <div className={`${styles.shortcut_square} ${styles.non_link_square}`} onClick={() => setShortcutEdit(prev => !prev)} >
+                < BsThreeDots className={`${styles.edit_shortcut_icon} ${shortcutEdit ? styles.click_animation_forward : styles.click_animation_reverse }`}/>
+            </div>        
         </section>
     )
 }

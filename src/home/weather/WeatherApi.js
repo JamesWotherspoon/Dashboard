@@ -19,8 +19,17 @@ const WeatherApi = () => {
     const [statusOfWeatherApi, setStatusOfWeatherApi] = useState('loading');
     const [retryFetch, setRetryFetch] = useState(false);
 
+    // options icon click toggle transition classes
+    const [optionsIconClick, setOptionsIconClick] = useState(false)
+
+    
     useEffect(() => {
-        setPostcode( JSON.parse( localStorage.getItem('postcode') ) );
+        let localStoragePostcode = localStorage.getItem('postcode');
+        if(localStoragePostcode){
+            setPostcode( JSON.parse( localStoragePostcode ) );
+        } else {
+            setPostcode('SW1')
+        }
     }, []);
 
 
@@ -112,7 +121,7 @@ const WeatherApi = () => {
 
     const handlePostcodeChange = (postcodeSubmit) => {        
         if(postcode === postcodeSubmit && weatherApiData){
-            setIsInputOpen(false);
+            handleIsInputOpen(false);
             return
         }
         if(postcode === postcodeSubmit) setRetryFetch(prev => !prev);
@@ -124,13 +133,14 @@ const WeatherApi = () => {
             setIsInputOpen(isOpen)
         } else{
             setIsInputOpen(prev => !prev)
-        }     
+        }
+        setOptionsIconClick(prev => !prev);     
     }
 
     return (
         <section className={`${home.weather} ${styles.weather}`}> 
             <div className={styles.options_icon_container}>  
-                <BsThreeDots className={styles.options_icon} onClick={handleIsInputOpen}/>
+                <BsThreeDots className={`${styles.options_icon} ${optionsIconClick ?  styles.click_animation_forward : styles.click_animation_reverse }`} onClick={handleIsInputOpen}/>
             </div>        
             {isInputOpen ? (
                 <WeatherInput 
