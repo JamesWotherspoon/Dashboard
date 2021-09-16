@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import home from '../home.module.scss';
 import styles from './Reminders.module.scss';
-import { IoClose } from 'react-icons/io5';
 import ReminderAddEdit from './RemindersAddEdit';
 import ReminderDisplay from './ReminderDisplay';
 import { CSSTransition } from 'react-transition-group';

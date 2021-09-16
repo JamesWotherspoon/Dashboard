@@ -8,7 +8,7 @@ import { GrFormPrevious } from 'react-icons/gr';
 
 export default function NewsContentDisplay({newsStories}) {
     const [currentArticleIndex, setCurrentArticleIndex] = useState(6);
-    const [numberArticlesDisplayed, setNumberArticlesDisplayed] = useState(3);
+    const [, setNumberArticlesDisplayed] = useState(3);
     const [transitionRight, setTransitionRight] = useState(false);
     const [transitionLeft, setTransitionLeft] = useState(false);
     const [clickArrowTimeout, setClickArrowTimeout] = useState({ previous: false, next: false })
