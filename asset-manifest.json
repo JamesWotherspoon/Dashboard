@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/dashboard/static/css/main.9826609b.chunk.css",
-    "main.js": "/dashboard/static/js/main.65900124.chunk.js",
-    "main.js.map": "/dashboard/static/js/main.65900124.chunk.js.map",
+    "main.css": "/dashboard/static/css/main.1edd51a6.chunk.css",
+    "main.js": "/dashboard/static/js/main.2615c346.chunk.js",
+    "main.js.map": "/dashboard/static/js/main.2615c346.chunk.js.map",
     "runtime-main.js": "/dashboard/static/js/runtime-main.e69dd663.js",
     "runtime-main.js.map": "/dashboard/static/js/runtime-main.e69dd663.js.map",
     "static/js/2.e767d814.chunk.js": "/dashboard/static/js/2.e767d814.chunk.js",
     "static/js/2.e767d814.chunk.js.map": "/dashboard/static/js/2.e767d814.chunk.js.map",
     "index.html": "/dashboard/index.html",
-    "static/css/main.9826609b.chunk.css.map": "/dashboard/static/css/main.9826609b.chunk.css.map",
+    "static/css/main.1edd51a6.chunk.css.map": "/dashboard/static/css/main.1edd51a6.chunk.css.map",
     "static/js/2.e767d814.chunk.js.LICENSE.txt": "/dashboard/static/js/2.e767d814.chunk.js.LICENSE.txt",
     "static/media/amazon.bff96809.jpg": "/dashboard/static/media/amazon.bff96809.jpg",
     "static/media/bbc_news.19347497.png": "/dashboard/static/media/bbc_news.19347497.png",
@@ -21,7 +21,7 @@
   "entrypoints": [
     "static/js/runtime-main.e69dd663.js",
     "static/js/2.e767d814.chunk.js",
-    "static/css/main.9826609b.chunk.css",
-    "static/js/main.65900124.chunk.js"
+    "static/css/main.1edd51a6.chunk.css",
+    "static/js/main.2615c346.chunk.js"
   ]
 }
