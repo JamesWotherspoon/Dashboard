@@ -35,11 +35,11 @@
     @extend %main_component;
   }
   .search_bar {
-    grid-area: 6 / 1 / 7 / 11;
+    grid-area: 6 / 1 / 7 / 5 ;
     @extend %main_component;
   }
   .weather {
-    grid-area: 1 / 5 / 6 / 10;
+    grid-area: 1 / 5 / 7 / 10 ;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
     
@@ -59,16 +59,6 @@
     grid-area: 7 / 1 / 13 / 5;
     @extend %main_component;
   }
-}
-
-
-@media only screen and (max-height: 650px){
-  .search_bar {
-    grid-area: 6 / 1 / 7 / 5 !important;
-  }
-  .weather {
-    grid-area: 1 / 5 / 7 / 10 !important;
-  }    
 }
 
 

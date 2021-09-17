@@ -12,12 +12,14 @@ $preset-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131,
 .weather {
 
   overflow: hidden;
+  margin: 0 0 20px 0;
+  
 
 
   .current_postcode {
     height: 18px;
     position: absolute;
-    top: 4px;
+    top: 9px;
     right: 46px; 
     font-size: calc(4px + 1vw)
   }
@@ -25,7 +27,7 @@ $preset-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131,
   .options_icon_container {
     width: 36px;
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 0;
     display: flex;
     justify-content: center;
@@ -111,16 +113,19 @@ $preset-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131,
 
   .weather_display_container {
     height: 100%;
+    padding: 40px 0 0 0;
     display: flex;
     flex-direction: column;
     
     .today_title {
       width: 60%;
       font-size: calc(10px + 1vw);
+      position: relative;
+      top: 10px;
     }
 
     .current_weather_container {
-      flex-grow: 7;
+      flex-grow: 5;
       display: flex;
       justify-content: space-evenly;
       align-items: center;
@@ -181,6 +186,10 @@ $preset-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131,
 
       .forcast_day_container {
         width: 20%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
 
         &:nth-child(1n){
           border-right: 1px solid black;
@@ -211,6 +220,7 @@ $preset-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131,
         .forcast_date {
           width: 100%;
           font-size: calc(9px + 0.5vw);
+          margin: 10px 0 10px 0;
         }
 
         .forcast_weather_icon {
@@ -219,13 +229,17 @@ $preset-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.2), 0px 2px 5px 2px rgba(131,
 
         .forcast_day_data {
           position: relative;
-          top: -4px;
+          width: 100%;
           font-size: calc(10px + 0.6vw);
           display: flex;
           justify-content: space-between;
           padding: 0 3px;
+          margin: 0 0 5px 0;
           .forcast_min_max_temp {
             margin: auto;
+            h5 {
+              margin: 4px 0;
+            }
           }
 
           .forcast_rain {

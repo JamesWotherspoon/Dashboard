@@ -13,7 +13,7 @@ export default function ReminderDisplay({ remindersList, editReminder, deleteRem
 
         remindersArray.push(
             <div className={styles.upcoming_event_container} key={reminder.key}>             
-                <h4 className={styles.date}>{displayNewDate}</h4> 
+                { displayNewDate  ? <h4 className={styles.date}>{displayNewDate}</h4> : null} 
                 <div className={styles.upcoming_event_details} >
                     <div className={styles.event_icons_container} >
                         <AiOutlineEdit className={`${styles.event_edit_icon} ${styles.event_icon}`} onClick={() => editReminder(reminder.key)}/>
