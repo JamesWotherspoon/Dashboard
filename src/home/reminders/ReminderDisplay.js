@@ -15,9 +15,9 @@ export default function ReminderDisplay({ remindersList, editReminder, deleteRem
             <div className={styles.upcoming_event_container} key={reminder.key}>             
                 <h4 className={styles.date}>{displayNewDate}</h4> 
                 <div className={styles.upcoming_event_details} >
-                    <div className={styles.event_icons} >
-                        <AiOutlineEdit className={styles.event_edit_icon} onClick={() => editReminder(reminder.key)}/>
-                        <IoClose className={styles.event_close_icon} onClick={() => deleteReminder(reminder.key)}/>
+                    <div className={styles.event_icons_container} >
+                        <AiOutlineEdit className={`${styles.event_edit_icon} ${styles.event_icon}`} onClick={() => editReminder(reminder.key)}/>
+                        <IoClose className={`${styles.event_close_icon} ${styles.event_icon}`} onClick={() => deleteReminder(reminder.key)}/>
                     </div>
                     <h6 className={styles.event_title} >{reminder.title}</h6>
                     <p className={styles.event_location} >{reminder.location}</p>

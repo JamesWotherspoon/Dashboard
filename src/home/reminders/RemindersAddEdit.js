@@ -47,8 +47,9 @@ const RemindersAddEdit = ({ remindersList, keyOfEdit, deleteReminder, addReminde
     return (
         <div className={styles.add_edit_task_container}>
             <form autoComplete="off" onSubmit={onFormSubmit} >
-                <IoClose onClick={callToggleForm} className={styles.close_form} />
-
+                <div className={styles.close_form} onClick={callToggleForm}>
+                    <IoClose />
+                </div>
                 <input type="date" name="date" className={styles.date_input} value={reminderInput.date} onChange={handleInputChange}/>
                 <input type="text" name="title" placeholder="Title" value={reminderInput.title} onChange={handleInputChange} required/>
                 <input type="text" name="location" placeholder="Location" value={reminderInput.location} onChange={handleInputChange}/>         
