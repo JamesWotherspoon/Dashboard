@@ -117,10 +117,9 @@ $heavy-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.3), 0px 2px 5px 2px rgba(131, 
                 bottom: 7px;
                 left: -15px;
                 height: calc(100% - 14px);
-                width: calc(3px + 0.3vw );
+                width: 5px;
                 background-color: rgb(66, 133, 242);
                 border-radius: 20px;
-                
             }
         }
     } 
@@ -191,120 +190,119 @@ $heavy-shadow: 0px 1px 3px 0px rgba(61, 61, 61, 0.3), 0px 2px 5px 2px rgba(131, 
     }
 }
 
-.add_edit_task_container {
-    width: stretch;
-    height: stretch;
-    margin: 0 0 0 40px;
-
-    @media screen and (max-width: 1300px){
-        margin: 0 0 0 10px;
-    }
+.add_task_container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: rgba(56, 56, 56, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 
     form {
-        height: fit-content;
-        width: 100%;
-        max-width: 270px;
+        height: 600px;
+        width: 500px;
+        margin: 50px 0 0 0;
         position: relative;
-        padding: 35px 10px 10px 10px;
-        margin: 70px auto;
-
+        background-color: rgb(255, 255, 255);
+        color: #222;
+        border-radius: 5px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        justify-content: space-between;
+        
+        padding: 32px 40px;
+        text-align: left;
 
-        font-size: calc(9px + 0.4vw);
-
-        border: 1px solid rgba(20, 20, 20, 0.3);
-        border-radius: 5px;
-        box-shadow: $mid-shadow;
-
-        input {
-            width: 95%;
-            padding: 5px 10px 5px 10px;
-            margin: 14px 0;
-            border: 1px solid #222;
-            border-radius: 5px;
-            font-size: inherit;
-
-            @media screen and (max-width: 1100px) {
-                margin: 8px 0px;
-                padding: 2px 3px;
-            }
-            &:focus {
-                outline: none;
-            }
-        }
-
-        .date_input {
-            min-width: fit-content;
-            width: 95%;
-        }
-
-        .close_form {
+        h2 {
             display: flex;
-            justify-content: center;
             align-items: center;
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            .add_reminder_title_icon {
+               margin: 0 10px 0 0;
+            }
+        }
+        .add_reminder_input_label_container {
+            width: 100%;
+
+            label {
+                font-size: 16px;
+            }
+
+            input {
+                width: 100%;
+                height: 40px;
+                margin: 5px 0 0 0;
+                border: 1px solid #222;
+                border-radius: 5px;
+                padding: 0 7px;
+                font-size: 16px;
+                box-shadow: 1px 1px 3px 0px rgba(190, 190, 190, 0.315);
+                &:-webkit-autofill::first-line {
+                    font-size: 16px;
+                }
+                &:focus {
+                    outline: none;
+                }
+            }
+            .time_input_container {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                .reminder_time_to {
+                    margin: 0 10px;
+                    font-size: 18px;
+                }
+                input {
+                    flex: 1 1 26%;
+                }
+            }
+            .time_input {
+                width: fit-content;
+            }
+        }
+
+        .add_reminder_close_form_icon {
             width: 30px;
             height: 30px;
             position: absolute;
-            right: 5px;
-            top: 5px;
+            top: 10px;
+            right: 10px;
             font-size: 20px;
             border-radius: 100px;
             padding: 5px;
             &:hover {
                 background-color: rgb(230, 230, 230);
             }
-        }     
+        }   
         
-
-        .reminder_time_container {
-            width: 95%;
-            display: flex;
-
-            justify-content: space-between;
-            align-items: center;
-
-            .reminder_time_to {
-                font-size: calc(10px + 0.7vw);
-            }
-            input {
-                width: 40%;
-                min-width: 80px;
-                font-size: calc(9px + 0.4vw);
-            }
-        }
         .edit_delete_buttons {
+            width: 100%;
             display: flex;
+            flex-direction: column;
         }
         
-        @media screen and (max-width: 1150px) {
-            .reminder_time_container{
-                flex-direction: column;
-                justify-content: center;
-
-                input {
-                    width: 80%;
-                }
-            }
-            .edit_delete_buttons {
-                flex-direction: column;
-                
-            }
-        }
         button {
-            min-width: 80px;
-            padding: 8px;
-            margin: 12px 3px;
-            border: 1px solid #222;
+            margin: 10px 0;
+            padding: 10px 15px;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+            border: 0.5px solid #222;
             border-radius: 5px;
-            font-size: inherit;
+            box-shadow: 1px 1px 3px 0px rgba(190, 190, 190, 0.315);
+            background-color: #222;
+            color: white;
             &:active {
-                box-shadow: inset 1px 1px 3px  rgba(0, 0, 0, 0.3);
-            }
-            &:hover {
-                background-color: #e6e6e6;
+                transform: scale(0.96);
+                transition: transform 0.5;
             }
         }
     }

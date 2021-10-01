@@ -1,7 +1,4 @@
-@font-face {
-  font-family: 'digital';
-  src: local('digital'), url(../fonts/digital-7.mono.woff) format('woff');
-}
+
 
 .home {
   height: 100%;
@@ -16,10 +13,35 @@
   
   padding: 50px 80px;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 900px) {
     padding: 30px;
     grid-gap: 10px;
   }
+
+  @media screen and (max-width: 500px) {
+    grid: repeat(14, 1fr) / 1fr;
+    min-width: 100%;
+    min-height: fit-content;
+    .clock {
+      grid-area: 1 / 1 / 2 / 2 !important;
+    }
+    .shortcuts {
+      grid-area: 2 / 1 / 5 / 2 !important;
+    }
+    .weather {
+      grid-area: 5 / 1 / 7 / 2 !important;      
+    }
+    .news_api {
+      grid-area: 7 / 1 / 9 / 2 !important;
+    }
+    .reminders {
+      grid-area: 9 / 1 / 13 / 2 !important;
+    }
+    .search_bar {
+      display: none;
+    }
+  }
+
 
   %main_component {
     position: relative;
@@ -51,8 +73,6 @@
   }
   .reminders {
     grid-area: 1 / 10 / 13 / 13;
-    background-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(5px);
     @extend %main_component;
   }
   .shortcuts {

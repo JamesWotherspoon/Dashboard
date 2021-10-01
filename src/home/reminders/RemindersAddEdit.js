@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import styles from './Reminders.module.scss';
 import { IoClose } from 'react-icons/io5';
+import { BiMessageSquareMinus } from 'react-icons/bi';
+
 
 const RemindersAddEdit = ({ remindersList, keyOfEdit, deleteReminder, addReminder, callToggleForm })  => {
 
@@ -45,18 +47,32 @@ const RemindersAddEdit = ({ remindersList, keyOfEdit, deleteReminder, addReminde
     };
 
     return (
-        <div className={styles.add_edit_task_container}>
+        <div className={styles.add_task_container}>
             <form autoComplete="off" onSubmit={onFormSubmit} >
-                <div className={styles.close_form} onClick={callToggleForm}>
-                    <IoClose />
+                <IoClose className={styles.add_reminder_close_form_icon} onClick={callToggleForm}/>
+                <h2>
+                    <BiMessageSquareMinus className={styles.add_reminder_title_icon}/>
+                    Reminder
+                </h2>
+                <div className={styles.add_reminder_input_label_container}>
+                    <label className={styles.add_reminder_label} htmlFor="date">Date</label>
+                    <input type="date" id="date" name="date" value={reminderInput.date} onChange={handleInputChange}/>
                 </div>
-                <input type="date" name="date" className={styles.date_input} value={reminderInput.date} onChange={handleInputChange}/>
-                <input type="text" name="title" placeholder="Title" value={reminderInput.title} onChange={handleInputChange} required/>
-                <input type="text" name="location" placeholder="Location" value={reminderInput.location} onChange={handleInputChange}/>         
-                <div className={styles.reminder_time_container}>
-                    <input id="starts" name="startTime" type="time" value={reminderInput.startTime} onChange={handleInputChange}/>
-                    <span className={styles.reminder_time_to}> to </span>
-                    <input id="end" name="endTime" type="time" value={reminderInput.endTime} onChange={handleInputChange}/>
+                <div className={`${styles.add_reminder_input_label_container} ${styles.time_input_container}`}>
+                    <label className={styles.add_reminder_label} htmlFor="time">Time</label>
+                    <div className={`${styles.time_input_container}`} id="time">
+                        <input id="starts" name="startTime" type="time" className={styles.time_input} value={reminderInput.startTime} onChange={handleInputChange}/>
+                        <span className={styles.reminder_time_to}> to </span>
+                        <input id="end" name="endTime" type="time" className={styles.time_input} value={reminderInput.endTime} onChange={handleInputChange}/>
+                    </div>
+                </div>
+                <div className={styles.add_reminder_input_label_container}>
+                    <label className={styles.add_reminder_label} htmlFor="task">Task</label>
+                    <input type="text" name="title" id="task" value={reminderInput.title} onChange={handleInputChange} required/>
+                </div>
+                <div className={styles.add_reminder_input_label_container}>
+                    <label className={styles.add_reminder_label} htmlFor="location">Location</label>
+                    <input type="text" name="location" id="location" value={reminderInput.location} onChange={handleInputChange}/>         
                 </div>
                 
                 {(keyOfEdit) ? (

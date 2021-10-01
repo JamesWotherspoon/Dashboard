@@ -80,50 +80,22 @@ const Reminders = () => {
         <section className={`${home.reminders} ${styles.reminders}`}>
             <div className={styles.component_title_container}>
                 <h3 className={styles.component_title} >Reminders</h3>  
-            </div>
-                <CSSTransition 
-                    in={!toggleForm} 
-                    timeout={600} 
-                    classNames={{
-                        enter: styles.reminderDisplayEnter,
-                        enterActive: styles.reminderDisplayEnterActive,
-                        enterDone: styles.reminderDisplayEnterDone,
-                        exitActive: styles.reminderDisplayExitActive,
-                        exitDone: styles.reminderDisplayExitDone
-                    }}
-                    mountOnEnter
-                    unmountOnExit
-                >    
+            </div> 
                     <ReminderDisplay 
                         remindersList={orderedReminders} 
                         editReminder={editReminder} 
                         deleteReminder={deleteReminder}
                         callToggleForm={callToggleForm}
-                    /> 
-                </CSSTransition>
-                
-                <CSSTransition 
-                    in={toggleForm} 
-                    timeout={500} 
-                    classNames={{
-                        enter: styles.reminderFormEnter,
-                        enterActive: styles.reminderFormEnterActive,
-                        enterDone: styles.reminderFormEnterDone,
-                        exit: styles.reminderFormExit,
-                        exitActive: styles.reminderFormExitActive,
-                        exitDone: styles.reminderFormExitDone
-                    }}
-                    mountOnEnter
-                    unmountOnExit
-                >                       
-                    <ReminderAddEdit 
-                        remindersList={orderedReminders} 
-                        keyOfEdit={keyOfEdit} 
-                        deleteReminder={deleteReminder} 
-                        addReminder={addReminder}
-                        callToggleForm={callToggleForm}
                     />
-                </CSSTransition>
+                    {toggleForm ? 
+                        <ReminderAddEdit 
+                            remindersList={orderedReminders} 
+                            keyOfEdit={keyOfEdit} 
+                            deleteReminder={deleteReminder} 
+                            addReminder={addReminder}
+                            callToggleForm={callToggleForm}
+                        />
+                    : null }
         </section>
     )
 }

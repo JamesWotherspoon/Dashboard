@@ -42,8 +42,10 @@ const Clock = () => {
 
     return (
         <section className={`${home.clock} ${styles.clock}`}>
-            <h2 className={styles.time}>{time}</h2>
-            <h3 className={styles.date_container} >{day} {date}<span className={styles.date_suffix}>{suffix}</span> {month}</h3>
+            <div className={styles.date_time_container}>
+                <h2 className={styles.time}>{time}</h2>
+                <h3 className={styles.date_container} >{day} {date}<span className={styles.date_suffix}>{suffix}</span> {month}</h3>
+            </div>
         </section>
     )
 }
